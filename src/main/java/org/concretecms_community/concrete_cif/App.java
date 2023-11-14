@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,27 +12,52 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 public class App {
+
+	private enum Operation {
+		Help,
+		Version,
+		Check
+	}
+
 	public static void main(String[] args) {
 		System.exit(execute(args));
 	}
 
 	private static void showSyntax() {
-		URL resource = App.class.getResource("App.class");
-		String mtPrefix = resource.getProtocol() == "jar" ? "java -jar " : "";
-		System.out.println("Syntax: " + mtPrefix + App.class.getName());
-		System.out.println(" <-h|--help|path1... pathN>");
+		try {
+			String myPath = App.class
+				.getProtectionDomain()
+				.getCodeSource()
+				.getLocation()
+				.toURI()
+				.getPath();
+			String myName = myPath.substring(myPath.lastIndexOf('/') + 1);
+			System.out.println("Syntax: " + myName);
+			System.out.println(" <-h|--help|-v|--version|path1... pathN>");
+		} catch (URISyntaxException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
-	private static boolean argsContainHelp(String[] args) {
+	private static void showVersion() {
+		String myVersion = App.class.getPackage().getImplementationVersion();
+		System.err.println(myVersion);
+	}
+
+	private static Operation getOperation(String[] args) {
+		Operation result = Operation.Check;
 		for (String arg : args) {
 			if (arg.equals("-h") || arg.equals("--help")) {
-				return true;
+				return Operation.Help;
+			}
+			if (arg.equals("-v") || arg.equals("--version")) {
+				result = Operation.Version;
 			}
 			if (arg.equals("--")) {
 				break;
 			}
 		}
-		return false;
+		return result;
 	}
 
 	private static List<File> getFiles(String[] args) throws FileNotFoundException {
@@ -64,9 +90,13 @@ public class App {
 	}
 
 	private static int execute(String[] args) {
-		if (argsContainHelp(args)) {
-			showSyntax();
-			return 0;
+		switch (getOperation(args)) {
+			case Help:
+				showSyntax();
+				return 0;
+			case Version:
+				showVersion();
+				return 0;
 		}
 		List<File> files;
 		try {
