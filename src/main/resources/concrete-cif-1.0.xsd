@@ -1,0 +1,1367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <!-- The root element -->
+    <xs:element name="concrete5-cif">
+        <xs:complexType>
+            <xs:all>
+                <!-- see /concrete/bedrock/documentation/colors.xml -->
+                <xs:element name="area" minOccurs="0" maxOccurs="1" type="area" />
+                <xs:element name="attributecategories" minOccurs="0" maxOccurs="1" type="attributecategories" />
+                <xs:element name="attributekeys" minOccurs="0" maxOccurs="1" type="attributekeys" />
+                <xs:element name="attributesets" minOccurs="0" maxOccurs="1" type="attributesets" />
+                <xs:element name="attributetypes" minOccurs="0" maxOccurs="1" type="attributetypes" />
+                <xs:element name="banned_words" minOccurs="0" maxOccurs="1" type="banned_words" />
+                <xs:element name="blocktypes" minOccurs="0" maxOccurs="1" type="blocktypes" />
+                <xs:element name="blocktypesets" minOccurs="0" maxOccurs="1" type="blocktypesets" />
+                <xs:element name="boarddatasources" minOccurs="0" maxOccurs="1" type="boarddatasources" />
+                <xs:element name="boardslottemplates" minOccurs="0" maxOccurs="1" type="boardslottemplates" />
+                <xs:element name="boardtemplates" minOccurs="0" maxOccurs="1" type="boardtemplates" />
+                <xs:element name="boards" minOccurs="0" maxOccurs="1" type="boards" />
+                <xs:element name="config" minOccurs="0" maxOccurs="1" type="config" />
+                <xs:element name="containers" minOccurs="0" maxOccurs="1" type="containers" />
+                <xs:element name="conversationeditors" minOccurs="0" maxOccurs="1" type="conversationeditors" />
+                <xs:element name="conversationratingtypes" minOccurs="0" maxOccurs="1" type="conversationratingtypes" />
+                <xs:element name="expressentities" minOccurs="0" maxOccurs="1" type="expressentities" />
+                <xs:element name="expressentries" minOccurs="0" maxOccurs="1" type="expressentries" />
+                <xs:element name="flag_types" minOccurs="0" maxOccurs="1" type="flag_types" />
+                <xs:element name="geolocators" minOccurs="0" maxOccurs="1" type="geolocators" />
+                <xs:element name="groups" minOccurs="0" maxOccurs="1" type="groups" />
+                <xs:element name="ipaccesscontrolcategories" minOccurs="0" maxOccurs="1" type="ipaccesscontrolcategories" />
+                <xs:element name="jobs" minOccurs="0" maxOccurs="1" type="jobs" />
+                <xs:element name="jobsets" minOccurs="0" maxOccurs="1" type="jobsets" />
+                <xs:element name="packages" minOccurs="0" maxOccurs="1" type="packages" />
+                <xs:element name="pagefeeds" minOccurs="0" maxOccurs="1" type="pagefeeds" />
+                <xs:element name="pages" minOccurs="0" maxOccurs="1" type="pages" />
+                <xs:element name="pagetemplates" minOccurs="0" maxOccurs="1" type="pagetemplates" />
+                <xs:element name="pagetypecomposercontroltypes" minOccurs="0" maxOccurs="1" type="pagetypecomposercontroltypes" />
+                <xs:element name="pagetypepublishtargettypes" minOccurs="0" maxOccurs="1" type="pagetypepublishtargettypes" />
+                <xs:element name="pagetypes" minOccurs="0" maxOccurs="1" type="pagetypes" />
+                <xs:element name="permissionaccessentitytypes" minOccurs="0" maxOccurs="1" type="permissionaccessentitytypes" />
+                <xs:element name="permissioncategories" minOccurs="0" maxOccurs="1" type="permissioncategories" />
+                <xs:element name="permissionkeys" minOccurs="0" maxOccurs="1" type="permissionkeys" />
+                <xs:element name="singlepages" minOccurs="0" maxOccurs="1" type="singlepages" />
+                <xs:element name="sociallinks" minOccurs="0" maxOccurs="1" type="sociallinks" />
+                <xs:element name="stacks" minOccurs="0" maxOccurs="1" type="stacks" />
+                <xs:element name="summarycategories" minOccurs="0" maxOccurs="1" type="summarycategories" />
+                <xs:element name="summaryfields" minOccurs="0" maxOccurs="1" type="summaryfields" />
+                <xs:element name="summarytemplates" minOccurs="0" maxOccurs="1" type="summarytemplates" />
+                <xs:element name="systemcaptcha" minOccurs="0" maxOccurs="1" type="systemcaptcha" />
+                <xs:element name="systemcontenteditorsnippets" minOccurs="0" maxOccurs="1" type="systemcontenteditorsnippets" />
+                <xs:element name="tasks" minOccurs="0" maxOccurs="1" type="tasks" />
+                <xs:element name="tasksets" minOccurs="0" maxOccurs="1" type="tasksets" />
+                <xs:element name="themes" minOccurs="0" maxOccurs="1" type="themes" />
+                <xs:element name="thumbnailtypes" minOccurs="0" maxOccurs="1" type="thumbnailtypes" />
+                <xs:element name="trees" minOccurs="0" maxOccurs="1" type="trees" />
+                <xs:element name="workflowprogresscategories" minOccurs="0" maxOccurs="1" type="workflowprogresscategories" />
+                <xs:element name="workflowtypes" minOccurs="0" maxOccurs="1" type="workflowtypes" />
+            </xs:all>
+            <xs:attribute name="version" type="xs:string" use="required" fixed="1.0" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="attributecategories">
+        <xs:sequence>
+            <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="attributetypes" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="attributetype" type="element-with-handle" minOccurs="1" maxOccurs="unbounded" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="handle" type="standard-attribute-category" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="allow-sets" type="zero-or-one" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="attributekeys">
+        <xs:sequence>
+            <xs:element name="attributekey" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="baseAttributekey">
+                            <xs:attribute name="category" type="standard-attribute-category" use="required" />
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="attributesets">
+        <xs:sequence>
+            <xs:element name="attributeset" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="attributekey" type="element-with-handle" minOccurs="1" maxOccurs="unbounded" />
+                    </xs:sequence>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="category" type="standard-attribute-category" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="optional" />
+                    <xs:attribute name="locked" type="zero-or-one" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="attributetypes">
+        <xs:sequence>
+            <xs:element name="attributetype" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="categories" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="category" type="element-with-handle" minOccurs="1" maxOccurs="unbounded" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="banned_words">
+        <xs:sequence>
+            <xs:element name="banned_word" minOccurs="1" maxOccurs="unbounded" type="non-empty-string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="blocktypes">
+        <xs:sequence>
+            <xs:element name="blocktype" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="blocktypesets">
+        <xs:sequence>
+            <xs:element name="blocktypeset" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="blocktype" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="handle" type="handle-required" use="required" />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="name" type="non-empty-string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="boarddatasources">
+        <xs:sequence>
+            <xs:element name="datasource" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="boardslottemplates">
+        <xs:sequence>
+            <xs:element name="template" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="empty-string-after-trim">
+                            <xs:attribute name="handle" type="handle-required" use="required" />
+                            <xs:attribute name="package" type="handle" use="required" />
+                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                            <xs:attribute name="icon" type="non-empty-string" use="required" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="boardtemplates">
+        <xs:sequence>
+            <xs:element name="template" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="empty-string-after-trim">
+                            <xs:attribute name="handle" type="handle-required" use="required" />
+                            <xs:attribute name="package" type="handle" use="required" />
+                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                            <xs:attribute name="icon" type="non-empty-string" use="required" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="boards">
+        <xs:sequence>
+            <xs:element name="board" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="datasources" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="datasource" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="configuration" minOccurs="1" maxOccurs="1">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element name="fields" minOccurs="1" maxOccurs="1">
+                                                                <xs:complexType>
+                                                                    <xs:sequence>
+                                                                        <xs:element name="field" minOccurs="1" maxOccurs="unbounded">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+                                                                                </xs:sequence>
+                                                                                <xs:attribute name="key" type="handle-required" use="required" />
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                    </xs:sequence>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                            <xs:attribute name="source" type="non-empty-string" use="required" />
+                                            <xs:attribute name="weight" type="xs:integer" use="required" />
+                                            <xs:attribute name="day-interval-future" type="xs:integer" use="required" />
+                                            <xs:attribute name="day-interval-past" type="xs:integer" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="templates" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="template" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="handle" type="handle-required" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="template" type="handle-required" use="required" />
+                    <xs:attribute name="sort" type="non-empty-string" use="required" />
+                    <xs:attribute name="uses-custom-template-subset" type="zero-or-one" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="config">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="package" type="handle" use="optional" />
+                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="containers">
+        <xs:sequence>
+            <xs:element name="container" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="icon" type="non-empty-string" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="conversationeditors">
+        <xs:sequence>
+            <xs:element name="editor" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="activated" type="zero-or-one" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="conversationratingtypes">
+        <xs:sequence>
+            <xs:element name="conversationratingtype" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="points" type="xs:integer" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="expressentities">
+        <xs:sequence>
+            <xs:element name="entity" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="attributekeys" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="attributekey" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:complexContent>
+                                                <xs:extension base="baseAttributekey">
+                                                    <xs:attribute name="category" type="empty-string" use="optional" />
+                                                </xs:extension>
+                                            </xs:complexContent>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="forms" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="form" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:all>
+                                                <xs:element name="fieldsets" minOccurs="0" maxOccurs="1">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element name="fieldset" minOccurs="1" maxOccurs="unbounded">
+                                                                <xs:complexType>
+                                                                    <xs:all>
+                                                                        <xs:element name="controls" minOccurs="0" maxOccurs="1">
+                                                                            <xs:complexType>
+                                                                                <xs:sequence>
+                                                                                    <xs:element name="control" minOccurs="1" maxOccurs="unbounded">
+                                                                                        <xs:complexType mixed="true">
+                                                                                            <xs:sequence>
+                                                                                                <!-- <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" /> -->
+                                                                                                <xs:element name="attributekey" minOccurs="0" maxOccurs="1">
+                                                                                                    <xs:complexType>
+                                                                                                        <xs:attribute name="handle" type="handle-required" use="required" />
+                                                                                                    </xs:complexType>
+                                                                                                </xs:element>
+                                                                                                <!-- <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" /> -->
+                                                                                                <xs:element name="headline" minOccurs="0" maxOccurs="1">
+                                                                                                    <xs:simpleType>
+                                                                                                        <xs:restriction base="xs:string" />
+                                                                                                    </xs:simpleType>
+                                                                                                </xs:element>
+                                                                                                <xs:element name="body" minOccurs="0" maxOccurs="1">
+                                                                                                    <xs:simpleType>
+                                                                                                        <xs:restriction base="xs:string" />
+                                                                                                    </xs:simpleType>
+                                                                                                </xs:element>
+                                                                                            </xs:sequence>
+                                                                                            <xs:attribute name="id" type="guid" use="required" />
+                                                                                            <xs:attribute name="type" use="required">
+                                                                                                <xs:simpleType>
+                                                                                                    <xs:restriction base="xs:string">
+                                                                                                        <xs:enumeration value="association" />
+                                                                                                        <xs:enumeration value="attribute_key" />
+                                                                                                        <xs:enumeration value="entity_property" />
+                                                                                                    </xs:restriction>
+                                                                                                </xs:simpleType>
+                                                                                            </xs:attribute>
+                                                                                            <xs:attribute name="type-id" type="handle" use="optional" />
+                                                                                            <xs:attribute name="required" type="zero-or-one-or-empty" use="required" />
+                                                                                            <xs:attribute name="custom-label" type="xs:string" use="optional" />
+                                                                                        </xs:complexType>
+                                                                                    </xs:element>
+                                                                                </xs:sequence>
+                                                                            </xs:complexType>
+                                                                        </xs:element>
+                                                                    </xs:all>
+                                                                    <xs:attribute name="title" type="xs:string" use="required" />
+                                                                    <xs:attribute name="description" type="xs:string" use="required" />
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:all>
+                                            <xs:attribute name="id" type="guid" use="required" />
+                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="id" type="guid" use="required" />
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="plural_handle" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="description" type="xs:string" use="optional" />
+                    <xs:attribute name="results-folder" type="non-empty-string" use="required" />
+                    <xs:attribute name="include_in_public_list" type="zero-or-one-or-empty" use="optional" />
+                    <xs:attribute name="use_separate_site_result_buckets" type="zero-or-one-or-empty" use="optional" />
+                    <xs:attribute name="supports_custom_display_order" type="zero-or-one-or-empty" use="optional" />
+                    <xs:attribute name="default_view_form" type="guid" use="optional" />
+                    <xs:attribute name="default_edit_form" type="guid" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="expressentries">
+        <xs:sequence>
+            <xs:element name="entry" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="attributes" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="attributekey" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+                                            </xs:sequence>
+                                            <xs:attribute name="handle" type="handle-required" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="id" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:pattern value="[0-9a-f]+" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="label" type="non-empty-string" use="required" />
+                    <xs:attribute name="entity" type="handle-required" use="required" />
+                    <xs:attribute name="display-order" type="xs:integer" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="flag_types">
+        <xs:sequence>
+            <xs:element name="flag_type" minOccurs="1" maxOccurs="unbounded" type="non-empty-string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="geolocators">
+        <xs:sequence>
+            <xs:element name="geolocator" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="option" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute name="name" type="non-empty-string" use="required" />
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="description" type="xs:string" use="optional" />
+                    <xs:attribute name="active" type="zero-or-one" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="groups">
+        <xs:sequence>
+            <xs:element name="group" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="path" type="xs:string" use="optional" />
+                    <xs:attribute name="description" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ipaccesscontrolcategories">
+        <xs:sequence>
+            <xs:element name="ipaccesscontrolcategory" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="enabled" type="zero-or-one" use="required" />
+                    <xs:attribute name="max-events" use="required" type="integer-greather-than-zero" />
+                    <xs:attribute name="time-window" use="required" type="integer-greather-than-zero" />
+                    <xs:attribute name="ban-duration" use="required" type="integer-greather-than-zero" />
+                    <xs:attribute name="site-specific" use="required" type="zero-or-one" />
+                    <xs:attribute name="log-channel-handle" use="optional" type="handle-with-minus" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="jobs">
+        <xs:sequence>
+            <xs:element name="job" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="empty-string-after-trim">
+                            <xs:attribute name="handle" type="handle-required" use="required" />
+                            <xs:attribute name="package" type="handle" use="required" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="jobsets">
+        <xs:sequence>
+            <xs:element name="jobset" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="job" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="handle" type="handle-required" use="required" />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="packages">
+        <xs:sequence>
+            <xs:element name="package" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="full-content-swap" type="true-or-empty" use="optional" />
+                    <xs:attribute name="content-swap-file" type="non-empty-string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pagefeeds">
+        <xs:sequence>
+            <xs:element name="feed" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="handle" type="handle-required" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="parent" minOccurs="0" maxOccurs="1" type="non-empty-string" />
+                        <xs:element name="title" type="non-empty-string" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="descendents" type="zero-or-one" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="aliases" type="zero-or-one" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="featured" type="zero-or-one" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="pagetype" minOccurs="0" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value="\{ccm:export:pagetype:[a-z]([a-z0-9_]*[a-z0-9])?\}" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="contenttype">
+                            <xs:complexType>
+                                <xs:attribute name="type">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:enumeration value="description" />
+                                            <xs:enumeration value="area" />
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pages">
+        <xs:sequence>
+            <xs:element name="page" minOccurs="1" maxOccurs="unbounded" type="page" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pagetemplates">
+        <xs:sequence>
+            <xs:element name="pagetemplate" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="icon" type="xs:string" use="optional" />
+                    <xs:attribute name="internal" type="zero-or-one-or-empty" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pagetypecomposercontroltypes">
+        <xs:sequence>
+            <xs:element name="type" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pagetypes">
+        <xs:sequence>
+            <xs:element name="pagetype" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="pagetemplates" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="pagetemplate" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="handle" type="handle-required" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="type" use="required">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:enumeration value="all" />
+                                            <xs:enumeration value="custom" />
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="default" type="non-empty-string" use="required" />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="target" minOccurs="0" maxOccurs="1">
+                            <!-- @todo switch to XSD 1.1 to support what's imported by configurePageTypePublishTargetFromImport() -->
+                            <xs:complexType>
+                                <xs:attribute name="handle" type="handle-required" use="required" />
+                                <xs:anyAttribute processContents="skip" />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="composer" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element name="formlayout" minOccurs="0" maxOccurs="1">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="set" minOccurs="0" maxOccurs="unbounded">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element name="control" minOccurs="1" maxOccurs="unbounded">
+                                                                <xs:complexType>
+                                                                    <xs:attribute name="handle" type="handle-required" use="required" />
+                                                                    <xs:attribute name="type" type="handle-required" use="required" />
+                                                                    <xs:attribute name="required" type="zero-or-one" use="optional" />
+                                                                    <xs:attribute name="custom-template" type="xs:string" use="required" />
+                                                                    <xs:attribute name="custom-label" type="xs:string" use="optional" />
+                                                                    <xs:attribute name="description" type="xs:string" use="optional" />
+                                                                    <xs:attribute name="output-control-id" type="xs:string" use="optional" />
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:sequence>
+                                                        <xs:attribute name="name" type="xs:string" use="required" />
+                                                        <xs:attribute name="description" type="xs:string" use="optional" />
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                    <xs:element name="output" minOccurs="0" maxOccurs="1">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="pagetemplate" minOccurs="1" maxOccurs="unbounded">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element name="page" type="page" minOccurs="0" maxOccurs="1" />
+                                                        </xs:sequence>
+                                                        <xs:attribute name="handle" type="handle-required" use="required" />
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <!-- @todo add empty package in every xml -->
+                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="internal" type="zero-or-one" use="optional" />
+                    <xs:attribute name="site-type" type="handle" use="optional" />
+                    <xs:attribute name="launch-in-composer" type="zero-or-one" use="optional" />
+                    <xs:attribute name="is-frequently-added" type="zero-or-one" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pagetypepublishtargettypes">
+        <xs:sequence>
+            <xs:element name="type" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="permissionaccessentitytypes">
+        <xs:sequence>
+            <xs:element name="permissionaccessentitytype" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="categories" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="handle" type="handle-required" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="permissioncategories">
+        <xs:sequence>
+            <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="permissionkeys">
+        <xs:sequence>
+            <xs:element name="permissionkey" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="access" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <!-- @todo with XSD 1.1 we can use xs:all -->
+                                <xs:sequence>
+                                    <xs:element name="group" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                            <xs:attribute name="description" type="xs:string" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                    <xs:element name="entity" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="type" type="handle-required" use="required" />
+                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="category" type="handle-required" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="description" type="xs:string" use="optional" />
+                    <xs:attribute name="can-trigger-workflow" type="zero-or-one-or-true" use="optional" />
+                    <xs:attribute name="has-custom-class" type="zero-or-one-or-true" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="page">
+        <xs:sequence>
+            <xs:element name="attributes" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="attributekey" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element name="topics" minOccurs="0" maxOccurs="1">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="non-empty-string" />
+                                                    </xs:simpleType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                    <xs:element name="value" minOccurs="0" maxOccurs="1" />
+                                </xs:all>
+                                <xs:attribute name="handle" type="handle-required" />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="area" minOccurs="0" maxOccurs="unbounded" type="area" />
+        </xs:sequence>
+        <xs:attribute name="package" type="handle" use="optional" />
+        <xs:attribute name="path" type="xs:string" use="optional" />
+        <xs:attribute name="name" type="xs:string" use="optional" />
+        <xs:attribute name="pagetype" type="handle" use="optional" />
+        <xs:attribute name="custom-path" type="xs:string" use="optional" />
+        <xs:attribute name="description" type="xs:string" use="optional" />
+        <xs:attribute name="global" type="true-or-empty" use="optional" />
+        <xs:attribute name="root" type="true-or-empty" use="optional" />
+        <xs:attribute name="public-date" type="date-time" use="optional" />
+        <!-- @todo unused -->
+        <xs:attribute name="filename" type="xs:string" use="optional" />
+        <!-- @todo unused -->
+        <xs:attribute name="user" type="xs:string" use="optional" />
+        <!-- @todo unused -->
+        <xs:attribute name="template" type="xs:string" use="optional" />
+    </xs:complexType>
+
+    <xs:complexType name="singlepages">
+        <xs:sequence>
+            <xs:element name="page" type="page" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sociallinks">
+        <xs:sequence>
+            <xs:element name="link" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="service" type="handle-required" use="required" />
+                    <xs:attribute name="url" type="url-or-hash" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="stacks">
+        <xs:sequence>
+            <xs:element name="stack" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="area" type="area" minOccurs="1" maxOccurs="1" />
+                    </xs:sequence>
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="type" use="optional">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="folder" />
+                                <xs:enumeration value="global_area" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="path" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="summarycategories">
+        <xs:sequence>
+            <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="summaryfields">
+        <xs:sequence>
+            <xs:element name="field" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="summarytemplates">
+        <xs:sequence>
+            <xs:element name="template" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="categories" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="handle" type="handle-required" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="fields" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="field" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:simpleContent>
+                                                <xs:extension base="handle-required">
+                                                    <xs:attribute name="required" type="zero-or-one" use="optional" />
+                                                </xs:extension>
+                                            </xs:simpleContent>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="tags" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="tag" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="value" type="non-empty-string" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="icon" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="systemcaptcha">
+        <xs:sequence>
+            <xs:element name="library" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="non-empty-string" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="activated" type="zero-or-one" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="systemcontenteditorsnippets">
+        <xs:sequence>
+            <xs:element name="snippet" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="activated" type="zero-or-one" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tasks">
+        <xs:sequence>
+            <xs:element name="task" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tasksets">
+        <xs:sequence>
+            <xs:element name="taskset" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="task" minOccurs="1" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="handle" type="handle-required" use="required" />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="themes">
+        <xs:sequence>
+            <xs:element name="theme" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="activated" type="zero-or-one" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="thumbnailtypes">
+        <xs:sequence>
+            <xs:element name="thumbnailtype" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="filesets" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="fileset" minOccurs="1" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="sizingMode" use="optional">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="exact" />
+                                <xs:enumeration value="proportional" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="upscalingEnabled" type="zero-or-one-or-empty" use="optional" />
+                    <xs:attribute name="keepAnimations" type="zero-or-one-or-empty" use="optional" />
+                    <xs:attribute name="width">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:minExclusive value="0" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="height">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:minExclusive value="0" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="required" type="zero-or-one-or-empty" use="optional" />
+                    <xs:attribute name="limitedToFileSets" type="zero-or-one-or-empty" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="trees">
+        <xs:sequence>
+            <xs:element name="tree" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="category" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="name" type="non-empty-string" use="required" />
+                                <xs:attribute name="default" type="zero-or-one-or-empty" use="optional" />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="topic_category" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="name" type="non-empty-string" use="required" />
+                                <xs:attribute name="default" type="zero-or-one-or-empty" use="optional" />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="name" type="non-empty-string" use="required" />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="type" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="topic" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="workflowprogresscategories">
+        <xs:sequence>
+            <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="workflowtypes">
+        <xs:sequence>
+            <xs:element name="workflowtype" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Common types -->
+
+    <xs:simpleType name="non-empty-string">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1 " />
+            <xs:pattern value=".*\S.*" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="empty-string">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="0" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="empty-string-after-trim">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\s*" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="handle">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255 " />
+            <xs:pattern value="[a-z]?([a-z0-9_]*[a-z0-9])?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="handle-with-minus">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255 " />
+            <xs:pattern value="[a-z]?([a-z0-9_\-]*[a-z0-9])?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="handle-required">
+        <xs:restriction base="handle">
+            <xs:minLength value="1" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="zero-or-one">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="1" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="zero-or-one-or-true">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0" />
+            <xs:enumeration value="1" />
+            <xs:enumeration value="true" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="zero-or-one-or-empty">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0" />
+            <xs:enumeration value="1" />
+            <xs:enumeration value="" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="true-or-empty">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="" />
+            <xs:enumeration value="true" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="integer-greather-than-zero">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="element-with-handle">
+        <xs:attribute name="handle" type="handle-required" use="required" />
+    </xs:complexType>
+    <xs:simpleType name="standard-attribute-category">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="collection" />
+            <xs:enumeration value="event" />
+            <xs:enumeration value="express" />
+            <xs:enumeration value="file" />
+            <xs:enumeration value="site" />
+            <xs:enumeration value="site_type" />
+            <xs:enumeration value="user" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="date-time">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9] [0-2][0-9]:[0-5][0-9](:[0-5][0-9])?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="url">
+        <xs:restriction base="xs:anyURI">
+            <xs:pattern value="https?://[^/ ]+[^ ]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="url-or-hash">
+        <xs:restriction base="xs:anyURI">
+            <xs:pattern value="#|https?://[^/ ]+[^ ]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="area">
+        <xs:all>
+            <xs:element name="style" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="backgroundColor" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="backgroundImage" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="backgroundRepeat" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="backgroundSize" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="backgroundPosition" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="borderWidth" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="borderColor" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="borderStyle" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="borderRadius" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="baseFontSize" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="alignment" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="textColor" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="linkColor" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="paddingTop" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="paddingBottom" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="paddingLeft" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="paddingRight" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="marginTop" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="marginBottom" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="marginLeft" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="marginRight" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="rotate" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="boxShadowHorizontal" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="boxShadowVertical" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="boxShadowSpread" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="boxShadowBlur" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="boxShadowColor" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="boxShadowInset" minOccurs="0" maxOccurs="1" type="zero-or-one-or-empty" />
+                        <xs:element name="customClass" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="customID" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="customElementAttribute" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="hideOnExtraSmallDevice" minOccurs="0" maxOccurs="1" type="zero-or-one-or-empty" />
+                        <xs:element name="hideOnSmallDevice" minOccurs="0" maxOccurs="1" type="zero-or-one-or-empty" />
+                        <xs:element name="hideOnMediumDevice" minOccurs="0" maxOccurs="1" type="zero-or-one-or-empty" />
+                        <xs:element name="hideOnLargeDevice" minOccurs="0" maxOccurs="1" type="zero-or-one-or-empty" />
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="blocks" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="block" minOccurs="0" maxOccurs="unbounded">
+                            <!-- @todo add required "type" attribute (handle) and optional "name" attribute (string), still allowing any content -->
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="name" type="non-empty-string" />
+    </xs:complexType>
+    <xs:complexType name="baseAttributekey">
+        <xs:all>
+            <!-- Data for the specific attribute type -->
+            <!-- @todo switch to XSD 1.1 -->
+            <xs:element name="type" minOccurs="0" maxOccurs="1" />
+            <xs:element name="tree" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:attribute name="name" type="non-empty-string" />
+                    <xs:attribute name="path" type="non-empty-string" />
+                </xs:complexType>
+            </xs:element>
+
+        </xs:all>
+        <xs:attribute name="handle" type="handle-required" use="required" />
+        <xs:attribute name="package" type="handle" use="required" />
+        <xs:attribute name="type" type="handle-required" use="required" />
+        <!-- @todo switch to XSD 1.1 -->
+        <!-- Standard -->
+        <xs:attribute name="name" type="non-empty-string" use="required" />
+        <xs:attribute name="indexed" type="zero-or-one" use="optional" />
+        <xs:attribute name="searchable" type="zero-or-one" use="optional" />
+        <xs:attribute name="internal" type="zero-or-one" use="optional" />
+        <!-- user category -->
+        <xs:attribute name="profile-displayed" type="zero-or-one" use="optional" />
+        <xs:attribute name="profile-editable" type="zero-or-one" use="optional" />
+        <xs:attribute name="profile-required" type="zero-or-one" use="optional" />
+        <xs:attribute name="register-editable" type="zero-or-one" use="optional" />
+        <xs:attribute name="register-required" type="zero-or-one" use="optional" />
+        <xs:attribute name="member-list-displayed" type="zero-or-one" use="optional" />
+    </xs:complexType>
+</xs:schema>
