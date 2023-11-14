@@ -8,7 +8,7 @@ Because of the complexity of the CIF files, we need to use XML Schema v1.1.
 
 The problem is that PHP and many XML validators only support XML Schema v1.0.
 
-In order to solve this problem, you can use the [`concrete-cif.jar` app](https://github.com/concrete5-community/concrete-cif/releases/latest/download/concrete-cif.jar) you can find in the [GitHub releases](https://github.com/mlocati/concrete-cif/releases) (of course you can use the [`concrete-cif-1.0.xsd` file](https://github.com/concrete5-community/concrete-cif/releases/latest/download/concrete-cif-1.0.xsd) directly).
+In order to solve this problem, you can use the [`concrete-cif.jar` app](https://github.com/concrete5-community/concrete-cif/releases/latest/download/concrete-cif.jar) you can find in the [GitHub releases](https://github.com/concrete5-community/concrete-cif/releases) (of course you can use the [`concrete-cif-1.0.xsd` file](https://github.com/concrete5-community/concrete-cif/releases/latest/download/concrete-cif-1.0.xsd) directly).
 
 ## Using `concrete-cif.jar`
 
