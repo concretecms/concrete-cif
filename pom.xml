@@ -68,6 +68,20 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.5.1</version>
 				<configuration>
+					<filters>
+						 <filter>
+							<artifact>xerces:*</artifact>
+							 <excludes>
+								 <exclude>META-INF/*.MF</exclude>
+							</excludes>
+						</filter>
+						 <filter>
+							<artifact>xml-apis:*</artifact>
+							 <excludes>
+								 <exclude>META-INF/*.MF</exclude>
+							</excludes>
+						</filter>
+					</filters>
 					<transformers>
 						<transformer
 							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
