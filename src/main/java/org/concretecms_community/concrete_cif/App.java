@@ -89,7 +89,7 @@ public class App {
 		return url;
 	}
 
-	private static int execute(String[] args) {
+	public static int execute(String[] args) {
 		switch (getOperation(args)) {
 			case Help:
 				showSyntax();

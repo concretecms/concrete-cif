@@ -43,11 +43,10 @@ jobs:
         run: mvn org.eclipse.tycho:tycho-versions-plugin:set-version "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
       -
         name: Build
-        run: mvn -B package --file pom.xml
+        run: mvn --batch-mode verify
       -
-        name: Copy jar
-        if: steps.check-tag.outputs.tag
-        run: cp ./target/concrete_cif-*.jar ./concrete-cif.jar
+        name: Print version
+        run: java -jar concrete-cif.jar --version
       -
         name: Calculate hash
         if: steps.check-tag.outputs.tag
