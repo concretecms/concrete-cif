@@ -25,3 +25,4 @@ replay_pid*
 
 # Maven build stuff
 /target/
+/dependency-reduced-pom.xml

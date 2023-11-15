@@ -45,10 +45,6 @@ jobs:
         name: Build
         run: mvn -B package --file pom.xml
       -
-        name: Copy jar
-        if: steps.check-tag.outputs.tag
-        run: cp ./target/concrete_cif-*.jar ./concrete-cif.jar
-      -
         name: Calculate hash
         if: steps.check-tag.outputs.tag
         run: sha1sum concrete-cif.jar | tee -a concrete-cif.jar.sha1
