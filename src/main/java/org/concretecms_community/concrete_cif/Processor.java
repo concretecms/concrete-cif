@@ -3,6 +3,7 @@ package org.concretecms_community.concrete_cif;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -10,12 +11,16 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 class Processor {
+	private final PrintStream standardOutput;
+	private final PrintStream standardError;
 	private final SchemaValidator validator;
 	private final File file;
 	private static final Pattern rxConcreteCif = Pattern.compile("<concrete5?-cif(>|\\s|$)", Pattern.CASE_INSENSITIVE);
 	private final String omitPrefix;
 
-	public Processor(SchemaValidator validator, File file) {
+	public Processor(PrintStream standardOutput, PrintStream standardError, SchemaValidator validator, File file) {
+		this.standardOutput = standardOutput;
+		this.standardError = standardError;
 		this.validator = validator;
 		this.file = file;
 		if (file.isDirectory()) {
@@ -78,35 +83,35 @@ class Processor {
 		if (this.omitPrefix.length() > 0 && path.startsWith(this.omitPrefix)) {
 			path = path.substring(this.omitPrefix.length());
 		}
-		System.out.print(path + "... ");
+		this.standardOutput.print(path + "... ");
 		ValidationResult result;
 		try {
 			result = this.validator.validate(file);
 		} catch (SAXException | IOException e) {
-			System.err.println(e.getMessage());
+			this.standardError.println(e.getMessage());
 			return false;
 		}
 		if (result.isEmpty()) {
-			System.out.println("passed.");
+			this.standardOutput.println("passed.");
 			return true;
 		}
-		System.out.println("FAILED.");
+		this.standardError.println("FAILED.");
 		if (!result.warnings.isEmpty()) {
-			System.err.println("> WARNINGS");
+			this.standardError.println("> WARNINGS");
 			for (SAXParseException item : result.warnings) {
-				System.err.println("Line " + item.getLineNumber() + ": " + item.getMessage());
+				this.standardError.println("Line " + item.getLineNumber() + ": " + item.getMessage());
 			}
 		}
 		if (!result.errors.isEmpty()) {
-			System.err.println("> ERRORS");
+			this.standardError.println("> ERRORS");
 			for (SAXParseException item : result.errors) {
-				System.err.println("Line " + item.getLineNumber() + ": " + item.getMessage());
+				this.standardError.println("Line " + item.getLineNumber() + ": " + item.getMessage());
 			}
 		}
 		if (!result.fatalErrors.isEmpty()) {
-			System.err.println("> ERRORS");
+			this.standardError.println("> ERRORS");
 			for (SAXParseException item : result.fatalErrors) {
-				System.err.println("Line " + item.getLineNumber() + ": " + item.getMessage());
+				this.standardError.println("Line " + item.getLineNumber() + ": " + item.getMessage());
 			}
 		}
 		return false;

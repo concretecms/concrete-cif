@@ -6,23 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.concretecms_community.concrete_cif.App;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class VerifyTestCase {
 
+	private final AppWrapper app = new AppWrapper();
+
 	@ParameterizedTest
 	@MethodSource("goodCifsProvider")
 	void testGoodCifs(File file) {
-		assertEquals(0, App.execute(new String[] { file.getAbsolutePath() }));
+		assertEquals(0, this.app.execute(new String[] { file.getAbsolutePath() }));
 	}
 
 	@ParameterizedTest
 	@MethodSource("badCifsProvider")
 	void testBadCifs(File file) {
-		assertEquals(1, App.execute(new String[] { file.getAbsolutePath() }));
+		assertEquals(1, this.app.execute(new String[] { file.getAbsolutePath() }));
 	}
 
 	@Test
@@ -31,15 +32,21 @@ public class VerifyTestCase {
 		assertNotSame(0, goodFiles.length);
 		File[] badFiles = (File[]) badCifsProvider().limit(2).toArray(File[]::new);
 		assertNotSame(0, badFiles.length);
-		assertEquals(1, App.execute(new String[] { badFiles[0].getAbsolutePath(), goodFiles[0].getAbsolutePath() }));
-		assertEquals(1, App.execute(new String[] { goodFiles[0].getAbsolutePath(), badFiles[0].getAbsolutePath() }));
+		assertEquals(1,
+				this.app.execute(new String[] { badFiles[0].getAbsolutePath(), goodFiles[0].getAbsolutePath() }));
+		assertEquals(1,
+				this.app.execute(new String[] { goodFiles[0].getAbsolutePath(), badFiles[0].getAbsolutePath() }));
 		if (goodFiles.length >= 2) {
-			assertEquals(0, App.execute(new String[] { goodFiles[0].getAbsolutePath(), goodFiles[1].getAbsolutePath() }));
-			assertEquals(1, App.execute(new String[] { goodFiles[0].getAbsolutePath(), badFiles[0].getAbsolutePath(), goodFiles[1].getAbsolutePath() }));
+			assertEquals(0,
+					this.app.execute(new String[] { goodFiles[0].getAbsolutePath(), goodFiles[1].getAbsolutePath() }));
+			assertEquals(1, this.app.execute(new String[] { goodFiles[0].getAbsolutePath(),
+					badFiles[0].getAbsolutePath(), goodFiles[1].getAbsolutePath() }));
 		}
 		if (badFiles.length >= 2) {
-			assertEquals(1, App.execute(new String[] { badFiles[0].getAbsolutePath(), badFiles[1].getAbsolutePath() }));
-			assertEquals(1, App.execute(new String[] { badFiles[0].getAbsolutePath(), goodFiles[0].getAbsolutePath(), badFiles[1].getAbsolutePath() }));
+			assertEquals(1,
+					this.app.execute(new String[] { badFiles[0].getAbsolutePath(), badFiles[1].getAbsolutePath() }));
+			assertEquals(1, this.app.execute(new String[] { badFiles[0].getAbsolutePath(),
+					goodFiles[0].getAbsolutePath(), badFiles[1].getAbsolutePath() }));
 		}
 	}
 
