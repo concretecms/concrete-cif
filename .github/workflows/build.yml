@@ -42,7 +42,10 @@ jobs:
         if: steps.check-tag.outputs.tag
         run: mvn org.eclipse.tycho:tycho-versions-plugin:set-version "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
       -
-        name: Build
+        name: Compile
+        run: mvn --batch-mode compile
+      -
+        name: Verify
         run: mvn --batch-mode verify
       -
         name: Print version
