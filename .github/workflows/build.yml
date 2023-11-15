@@ -43,10 +43,10 @@ jobs:
         run: mvn org.eclipse.tycho:tycho-versions-plugin:set-version "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
       -
         name: Compile
-        run: mvn --batch-mode compile
+        run: mvn --batch-mode -Dstyle.color=always compile
       -
         name: Verify
-        run: mvn --batch-mode verify
+        run: mvn --batch-mode -Dstyle.color=always verify
       -
         name: Print version
         run: java -jar concrete-cif.jar --version

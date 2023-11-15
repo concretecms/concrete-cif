@@ -3,6 +3,7 @@ package org.concretecms_community.concrete_cif;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -13,38 +14,39 @@ import org.xml.sax.SAXParseException;
 
 public class App {
 
+	private final PrintStream standardOutput;
+	private final PrintStream standardError;
+
 	private enum Operation {
-		Help,
-		Version,
-		Check
+		Help, Version, Check
 	}
 
 	public static void main(String[] args) {
-		System.exit(execute(args));
+		System.exit(new App(System.out, System.err).execute(args));
 	}
 
-	private static void showSyntax() {
+	protected App(PrintStream standardOutput, PrintStream standardError) {
+		this.standardOutput = standardOutput;
+		this.standardError = standardError;
+	}
+
+	private void showSyntax() {
 		try {
-			String myPath = App.class
-				.getProtectionDomain()
-				.getCodeSource()
-				.getLocation()
-				.toURI()
-				.getPath();
+			String myPath = App.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			String myName = myPath.substring(myPath.lastIndexOf('/') + 1);
-			System.out.println("Syntax: " + myName);
-			System.out.println(" <-h|--help|-v|--version|path1... pathN>");
+			this.standardOutput.println("Syntax: " + myName);
+			this.standardOutput.println(" <-h|--help|-v|--version|path1... pathN>");
 		} catch (URISyntaxException e) {
-			System.err.println(e.getMessage());
+			this.standardError.println(e.getMessage());
 		}
 	}
 
-	private static void showVersion() {
+	private void showVersion() {
 		String myVersion = App.class.getPackage().getImplementationVersion();
-		System.err.println(myVersion);
+		this.standardError.println(myVersion);
 	}
 
-	private static Operation getOperation(String[] args) {
+	private Operation getOperation(String[] args) {
 		Operation result = Operation.Check;
 		for (String arg : args) {
 			if (arg.equals("-h") || arg.equals("--help")) {
@@ -60,7 +62,7 @@ public class App {
 		return result;
 	}
 
-	private static List<File> getFiles(String[] args) throws FileNotFoundException {
+	private List<File> getFiles(String[] args) throws FileNotFoundException {
 		List<File> result = new ArrayList<File>();
 		boolean optionsStopped = false;
 		for (String arg : args) {
@@ -80,7 +82,7 @@ public class App {
 		return result;
 	}
 
-	private static URL getXSDResource() throws IOException {
+	private URL getXSDResource() throws IOException {
 		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 		URL url = classLoader.getResource("concrete-cif-1.0.xsd");
 		if (url == null) {
@@ -89,24 +91,27 @@ public class App {
 		return url;
 	}
 
-	public static int execute(String[] args) {
+	protected int execute(String[] args) {
 		switch (getOperation(args)) {
-			case Help:
-				showSyntax();
-				return 0;
-			case Version:
-				showVersion();
-				return 0;
+		case Help:
+			showSyntax();
+			return 0;
+		case Version:
+			showVersion();
+			return 0;
+		case Check:
+		default:
+			break;
 		}
 		List<File> files;
 		try {
 			files = getFiles(args);
 		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage());
+			this.standardError.println(e.getMessage());
 			return 2;
 		}
 		if (files.isEmpty()) {
-			System.out.println("No file specified.");
+			this.standardOutput.println("No file specified.");
 			return 0;
 		}
 		System.setProperty("javax.xml.validation.SchemaFactory:http://www.w3.org/XML/XMLSchema/v1.1",
@@ -115,27 +120,27 @@ public class App {
 		try {
 			validator = new SchemaValidator(getXSDResource());
 		} catch (IOException e) {
-			System.err.println(e.getMessage());
+			this.standardError.println(e.getMessage());
 			return 2;
 		} catch (SAXParseException e) {
-			System.err.println(e.getMessage());
-			System.err.println("Line: " + e.getLineNumber());
+			this.standardError.println(e.getMessage());
+			this.standardError.println("Line: " + e.getLineNumber());
 			return 2;
 		} catch (SAXException e) {
-			System.err.println(e.getClass().getCanonicalName());
+			this.standardError.println(e.getClass().getCanonicalName());
 			return 2;
 		}
 		int exitCode = 0;
 		for (File file : files) {
 			try {
-				if (new Processor(validator, file).execute() == false) {
+				if (new Processor(this.standardOutput, this.standardError, validator, file).execute() == false) {
 					if (exitCode == 0) {
 						exitCode = 1;
 					}
 
 				}
 			} catch (FileNotFoundException e) {
-				System.err.println(e.getMessage());
+				this.standardError.println(e.getMessage());
 				exitCode = 2;
 			}
 		}
