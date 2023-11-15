@@ -6,7 +6,6 @@ import java.net.URL;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import org.apache.xerces.jaxp.validation.XMLSchemaFactory;
 import org.xml.sax.SAXException;
 
 import javax.xml.transform.stream.StreamSource;
@@ -16,7 +15,7 @@ class SchemaValidator {
 	private final Schema schema;
 
 	public SchemaValidator(URL xsdLocation) throws SAXException {
-		SchemaFactory factory = XMLSchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.1");
+		SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.1");
 		this.schema = factory.newSchema(xsdLocation);
 	}
 
