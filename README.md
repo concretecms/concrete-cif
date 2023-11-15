@@ -1,3 +1,5 @@
+[![Build](https://github.com/concrete5-community/concrete-cif/actions/workflows/build.yml/badge.svg)](https://github.com/concrete5-community/concrete-cif/actions/workflows/build.yml)
+
 # Validation of Concrete CIF files
 
 You can install almost everything in ConcreteCMS/concrete5 by using XML files in the so-called [CIF format](https://documentation.concretecms.org/developers/packages/install-content-using-content-interchange-format-cif).
