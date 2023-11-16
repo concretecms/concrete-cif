@@ -1,5 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,58 +16,67 @@ public class VerifyTestCase {
 
 	@ParameterizedTest
 	@MethodSource("goodCifsProvider")
-	void testGoodCifs(File file) {
-		assertEquals(0, this.app.execute(new String[] { file.getAbsolutePath() }));
+	void testGoodCifs(String path) {
+		this.assertExecute(path, 0);
 	}
 
 	@ParameterizedTest
 	@MethodSource("badCifsProvider")
-	void testBadCifs(File file) {
-		assertEquals(1, this.app.execute(new String[] { file.getAbsolutePath() }));
+	void testBadCifs(String path) {
+		this.assertExecute(path, 1);
 	}
 
 	@Test
 	void testMultipleCifs() {
-		File[] goodFiles = goodCifsProvider().limit(2).toArray(File[]::new);
-		assertNotSame(0, goodFiles.length);
-		File[] badFiles = (File[]) badCifsProvider().limit(2).toArray(File[]::new);
-		assertNotSame(0, badFiles.length);
-		assertEquals(1,
-				this.app.execute(new String[] { badFiles[0].getAbsolutePath(), goodFiles[0].getAbsolutePath() }));
-		assertEquals(1,
-				this.app.execute(new String[] { goodFiles[0].getAbsolutePath(), badFiles[0].getAbsolutePath() }));
+		String[] goodFiles = goodCifsProvider().limit(2).toArray(String[]::new);
+		assertNotEquals(0, goodFiles.length);
+		String[] badFiles = badCifsProvider().limit(2).toArray(String[]::new);
+		assertNotEquals(0, badFiles.length);
+		this.assertExecute(new String[] { badFiles[0], goodFiles[0] }, 1);
+		this.assertExecute(new String[] { goodFiles[0], badFiles[0] }, 1);
 		if (goodFiles.length >= 2) {
-			assertEquals(0,
-					this.app.execute(new String[] { goodFiles[0].getAbsolutePath(), goodFiles[1].getAbsolutePath() }));
-			assertEquals(1, this.app.execute(new String[] { goodFiles[0].getAbsolutePath(),
-					badFiles[0].getAbsolutePath(), goodFiles[1].getAbsolutePath() }));
+			this.assertExecute(new String[] { goodFiles[0], goodFiles[1] }, 0);
+			this.assertExecute(new String[] { goodFiles[0], badFiles[0], goodFiles[1] }, 1);
 		}
 		if (badFiles.length >= 2) {
-			assertEquals(1,
-					this.app.execute(new String[] { badFiles[0].getAbsolutePath(), badFiles[1].getAbsolutePath() }));
-			assertEquals(1, this.app.execute(new String[] { badFiles[0].getAbsolutePath(),
-					goodFiles[0].getAbsolutePath(), badFiles[1].getAbsolutePath() }));
+			this.assertExecute(new String[] { badFiles[0], badFiles[1] }, 1);
+			this.assertExecute(new String[] { badFiles[0], goodFiles[0], badFiles[1] }, 1);
 		}
 	}
 
-	static Stream<File> goodCifsProvider() {
+	private void assertExecute(String path, int expectedExitCode) {
+		this.assertExecute(new String[] { path }, expectedExitCode);
+	}
+
+	private void assertExecute(String[] paths, int expectedExitCode) {
+		String message = "Checking " + String.join(", ", paths);
+		int exitCode = this.app.execute(paths);
+		if (expectedExitCode == 0) {
+			assertEquals("", this.app.getStandardError(), message);
+		} else {
+			assertNotEquals("", this.app.getStandardError(), message);
+		}
+		assertEquals(expectedExitCode, exitCode);
+	}
+
+	static Stream<String> goodCifsProvider() {
 		return listTestResources("cifs-good");
 	}
 
-	static Stream<File> badCifsProvider() {
+	static Stream<String> badCifsProvider() {
 		return listTestResources("cifs-bad");
 	}
 
-	private static Stream<File> listTestResources(String directoryName) {
+	private static Stream<String> listTestResources(String directoryName) {
 		String directoryPath = "src/test/resources/" + directoryName;
 		File directory = new File(directoryPath);
-		List<File> files = new ArrayList<File>();
+		List<String> filesAbsolutePaths = new ArrayList<String>();
 		for (File file : directory.listFiles()) {
 			if (file.isFile()) {
-				files.add(file);
+				filesAbsolutePaths.add(file.getPath());
 			}
 		}
 
-		return files.stream();
+		return filesAbsolutePaths.stream();
 	}
 }

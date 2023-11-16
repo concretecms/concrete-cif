@@ -8,7 +8,6 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 class Processor {
 	private final PrintStream standardOutput;
@@ -96,24 +95,7 @@ class Processor {
 			return true;
 		}
 		this.standardError.println("FAILED.");
-		if (!result.warnings.isEmpty()) {
-			this.standardError.println("> WARNINGS");
-			for (SAXParseException item : result.warnings) {
-				this.standardError.println("Line " + item.getLineNumber() + ": " + item.getMessage());
-			}
-		}
-		if (!result.errors.isEmpty()) {
-			this.standardError.println("> ERRORS");
-			for (SAXParseException item : result.errors) {
-				this.standardError.println("Line " + item.getLineNumber() + ": " + item.getMessage());
-			}
-		}
-		if (!result.fatalErrors.isEmpty()) {
-			this.standardError.println("> ERRORS");
-			for (SAXParseException item : result.fatalErrors) {
-				this.standardError.println("Line " + item.getLineNumber() + ": " + item.getMessage());
-			}
-		}
+		this.standardError.print(result.toString());
 		return false;
 	}
 }
