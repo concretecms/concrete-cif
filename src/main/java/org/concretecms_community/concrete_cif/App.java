@@ -14,8 +14,8 @@ import org.xml.sax.SAXParseException;
 
 public class App {
 
-	private final PrintStream standardOutput;
-	private final PrintStream standardError;
+	protected final PrintStream standardOutput;
+	protected final PrintStream standardError;
 
 	private enum Operation {
 		Help, Version, Check
