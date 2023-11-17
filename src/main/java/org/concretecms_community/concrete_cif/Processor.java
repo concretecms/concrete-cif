@@ -75,7 +75,8 @@ class Processor {
 	}
 
 	private boolean processFile(File file) throws FileNotFoundException {
-		if (!this.shouldProcessFile(file)) {
+		boolean processIt = this.shouldProcessFile(file);
+		if (processIt == false && file != this.file) {
 			return true;
 		}
 		String path = file.getAbsolutePath();
@@ -83,6 +84,10 @@ class Processor {
 			path = path.substring(this.omitPrefix.length());
 		}
 		this.standardOutput.print(path + "... ");
+		if (processIt == false) {
+			this.standardOutput.println("skipped (not a Concrete CIF file).");
+			return true;
+		}
 		ValidationResult result;
 		try {
 			result = this.validator.validate(file);
