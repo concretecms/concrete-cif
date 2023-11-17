@@ -87,8 +87,7 @@
         </xs:sequence>
     </xs:complexType>
 
-    <!-- @see ImportAttributesRoutine -->
-    <xs:complexType name="attributeKeys">
+    <xs:complexType name="abstractAttributeKeys">
         <xs:sequence>
             <xs:element name="attributekey" minOccurs="1" maxOccurs="unbounded">
                 <xs:alternative test="@type = 'address'" type="addressAttributeKey" />
@@ -118,8 +117,17 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportAttributesRoutine -->
+    <xs:complexType name="attributeKeys">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeKeys">
+                <xs:assert test="every $attributeKey in attributekey satisfies ($attributeKey/@category and $attributeKey/@category != '')" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
     <xs:complexType name="abstractAttributeKey">
-        <xs:attribute name="category" type="standard-attribute-category" use="required" />
+        <xs:attribute name="category" type="standard-attribute-category-or-empty" use="optional" />
         <xs:attribute name="handle" type="handle-required" use="required" />
         <xs:attribute name="package" type="handle" use="required" />
         <xs:attribute name="type" type="handle-required" use="required" />
@@ -808,7 +816,7 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-    
+
     <!-- @see ImportDesignTagsRoutine -->
     <xs:complexType name="designTags">
         <xs:sequence>
@@ -821,105 +829,94 @@
         </xs:sequence>
     </xs:complexType>
 
-    <!-- @see ImportExpressAssociationsRoutine [wip] -->
+    <!-- @see ImportExpressAssociationsRoutine -->
+    <!-- @see ImportExpressEntitiesRoutine -->
+    <!-- @see ImportExpressFormsRoutine -->
+    <!-- @see ImportExpressRelationsRoutine -->
     <xs:complexType name="expressEntities">
         <xs:sequence>
+            <!-- @see Concrete\Core\Export\Item\Express\Entity -->
             <xs:element name="entity" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:all>
+                        <!-- @see ImportExpressEntitiesRoutine -->
                         <xs:element name="attributekeys" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="abstractAttributeKeys">
+                                        <xs:assert test="every $attributeKey in attributekey satisfies (not($attributeKey/@category) or $attributeKey/@category = '')" />
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                        <!-- @see Concrete\Core\Export\Item\Express\Association -->
+                        <!-- @see ImportExpressAssociationsRoutine -->
+                        <!-- @see ImportExpressRelationsRoutine -->
+                        <xs:element name="associations" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="attributekey" minOccurs="1" maxOccurs="unbounded">
+                                    <xs:element name="association" minOccurs="1" maxOccurs="unbounded">
                                         <xs:complexType>
-                                            <xs:all>
-                                                <!-- Data for the specific attribute type -->
-                                                <!-- @todo switch to XSD 1.1 -->
-                                                <xs:element name="type" minOccurs="0" maxOccurs="1" />
-                                                <xs:element name="tree" minOccurs="0" maxOccurs="1">
-                                                    <xs:complexType>
-                                                        <xs:attribute name="name" type="non-empty-string" />
-                                                        <xs:attribute name="path" type="non-empty-string" />
-                                                    </xs:complexType>
-                                                </xs:element>
-                                            </xs:all>
-                                            <xs:attribute name="handle" type="handle-required" use="required" />
-                                            <xs:attribute name="package" type="handle" use="required" />
-                                            <xs:attribute name="type" type="handle-required" use="required" />
-                                            <!-- @todo switch to XSD 1.1 -->
-                                            <!-- Standard -->
-                                            <xs:attribute name="name" type="non-empty-string" use="required" />
-                                            <xs:attribute name="indexed" type="zero-or-one" use="optional" />
-                                            <xs:attribute name="searchable" type="zero-or-one" use="optional" />
-                                            <xs:attribute name="internal" type="zero-or-one" use="optional" />
-                                            <!-- user category -->
-                                            <xs:attribute name="profile-displayed" type="zero-or-one" use="optional" />
-                                            <xs:attribute name="profile-editable" type="zero-or-one" use="optional" />
-                                            <xs:attribute name="profile-required" type="zero-or-one" use="optional" />
-                                            <xs:attribute name="register-editable" type="zero-or-one" use="optional" />
-                                            <xs:attribute name="register-required" type="zero-or-one" use="optional" />
-                                            <xs:attribute name="member-list-displayed" type="zero-or-one" use="optional" />
-                                            <xs:attribute name="category" type="empty-string" use="optional" />
+                                            <xs:attribute name="type" use="required">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:pattern value="[A-Za-z]\w*" />
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                            <xs:attribute name="id" type="guid" use="required" />
+                                            <xs:attribute name="source-entity" type="guid" use="required" />
+                                            <xs:attribute name="target-entity" type="guid" use="required" />
+                                            <xs:attribute name="target-property-name" use="optional">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:pattern value="([A-Za-z]\w*)?" />
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                            <xs:attribute name="inversed-by-property-name" use="optional">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:pattern value="([A-Za-z]\w*)?" />
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                            <xs:attribute name="is-owned" type="zero-or-one-or-empty" use="optional" />
+                                            <xs:attribute name="is-owner" type="zero-or-one-or-empty" use="optional" />
                                         </xs:complexType>
                                     </xs:element>
                                 </xs:sequence>
                             </xs:complexType>
                         </xs:element>
+                        <!-- @see Concrete\Core\Export\Item\Express\Form -->
+                        <!-- @see ImportExpressFormsRoutine -->
                         <xs:element name="forms" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                                 <xs:sequence>
                                     <xs:element name="form" minOccurs="1" maxOccurs="unbounded">
                                         <xs:complexType>
-                                            <xs:all>
+                                            <xs:sequence>
                                                 <xs:element name="fieldsets" minOccurs="0" maxOccurs="1">
                                                     <xs:complexType>
                                                         <xs:sequence>
                                                             <xs:element name="fieldset" minOccurs="1" maxOccurs="unbounded">
                                                                 <xs:complexType>
-                                                                    <xs:all>
+                                                                    <xs:sequence>
                                                                         <xs:element name="controls" minOccurs="0" maxOccurs="1">
                                                                             <xs:complexType>
                                                                                 <xs:sequence>
                                                                                     <xs:element name="control" minOccurs="1" maxOccurs="unbounded">
-                                                                                        <xs:complexType mixed="true">
-                                                                                            <xs:sequence>
-                                                                                                <!-- <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" /> -->
-                                                                                                <xs:element name="attributekey" minOccurs="0" maxOccurs="1">
-                                                                                                    <xs:complexType>
-                                                                                                        <xs:attribute name="handle" type="handle-required" use="required" />
-                                                                                                    </xs:complexType>
-                                                                                                </xs:element>
-                                                                                                <!-- <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" /> -->
-                                                                                                <xs:element name="headline" minOccurs="0" maxOccurs="1">
-                                                                                                    <xs:simpleType>
-                                                                                                        <xs:restriction base="xs:string" />
-                                                                                                    </xs:simpleType>
-                                                                                                </xs:element>
-                                                                                                <xs:element name="body" minOccurs="0" maxOccurs="1">
-                                                                                                    <xs:simpleType>
-                                                                                                        <xs:restriction base="xs:string" />
-                                                                                                    </xs:simpleType>
-                                                                                                </xs:element>
-                                                                                            </xs:sequence>
-                                                                                            <xs:attribute name="id" type="guid" use="required" />
-                                                                                            <xs:attribute name="type" use="required">
-                                                                                                <xs:simpleType>
-                                                                                                    <xs:restriction base="xs:string">
-                                                                                                        <xs:enumeration value="association" />
-                                                                                                        <xs:enumeration value="attribute_key" />
-                                                                                                        <xs:enumeration value="entity_property" />
-                                                                                                    </xs:restriction>
-                                                                                                </xs:simpleType>
-                                                                                            </xs:attribute>
-                                                                                            <xs:attribute name="type-id" type="handle" use="optional" />
-                                                                                            <xs:attribute name="required" type="zero-or-one-or-empty" use="required" />
-                                                                                            <xs:attribute name="custom-label" type="xs:string" use="optional" />
-                                                                                        </xs:complexType>
+                                                                                        <xs:alternative test="@type = 'association'" type="associationExpressEntryFormControl" />
+                                                                                        <xs:alternative test="@type = 'attribute_key'" type="attributeKeyExpressEntryFormControl" />
+                                                                                        <xs:alternative test="@type = 'entity_property' and @type-id = 'author'" type="authorExpressEntryFormControl" />
+                                                                                        <xs:alternative test="@type = 'entity_property' and @type-id = 'public-identifier'" type="publicIdentifierExpressEntryFormControl" />
+                                                                                        <xs:alternative test="@type = 'entity_property' and @type-id = 'text'" type="textExpressEntryFormControl" />
+                                                                                        <xs:alternative type="customExpressEntryFormControl" />
                                                                                     </xs:element>
                                                                                 </xs:sequence>
                                                                             </xs:complexType>
                                                                         </xs:element>
-                                                                    </xs:all>
+                                                                    </xs:sequence>
                                                                     <xs:attribute name="title" type="xs:string" use="required" />
                                                                     <xs:attribute name="description" type="xs:string" use="required" />
                                                                 </xs:complexType>
@@ -927,7 +924,7 @@
                                                         </xs:sequence>
                                                     </xs:complexType>
                                                 </xs:element>
-                                            </xs:all>
+                                            </xs:sequence>
                                             <xs:attribute name="id" type="guid" use="required" />
                                             <xs:attribute name="name" type="non-empty-string" use="required" />
                                         </xs:complexType>
@@ -936,22 +933,94 @@
                             </xs:complexType>
                         </xs:element>
                     </xs:all>
-                    <!-- todo add empty package in every xml? -->
-                    <xs:attribute name="package" type="handle" use="optional" />
                     <xs:attribute name="id" type="guid" use="required" />
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="plural_handle" type="handle" use="required" />
                     <xs:attribute name="name" type="non-empty-string" use="required" />
-                    <xs:attribute name="description" type="xs:string" use="optional" />
-                    <xs:attribute name="results-folder" type="non-empty-string" use="required" />
+                    <!-- @todo it's exported but not imported -->
+                    <xs:attribute name="supports_custom_display_order" type="zero-or-one-or-empty" use="optional" />
                     <xs:attribute name="include_in_public_list" type="zero-or-one-or-empty" use="optional" />
                     <xs:attribute name="use_separate_site_result_buckets" type="zero-or-one-or-empty" use="optional" />
-                    <xs:attribute name="supports_custom_display_order" type="zero-or-one-or-empty" use="optional" />
+                    <xs:attribute name="description" type="xs:string" use="optional" />
                     <xs:attribute name="default_view_form" type="guid" use="optional" />
                     <xs:attribute name="default_edit_form" type="guid" use="optional" />
+                    <xs:attribute name="results-folder" type="non-empty-string" use="optional" />
+                    <!-- @todo make it required, adding it to the core (also check if it's exported) -->
+                    <xs:attribute name="package" type="handle" use="optional" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
+    </xs:complexType>
+
+    <!-- @see Concrete\Core\Export\Item\Express\Control -->
+    <xs:complexType name="abstractExpressEntryFormControl">
+        <xs:attribute name="id" type="guid" use="required" />
+        <xs:attribute name="type" type="handle-required" use="required" />
+        <xs:attribute name="required" type="zero-or-one-or-empty" use="optional" />
+        <xs:attribute name="custom-label" type="xs:string" use="optional" />
+    </xs:complexType>
+
+    <xs:complexType name="customExpressEntryFormControl">
+        <xs:complexContent>
+            <xs:extension base="abstractExpressEntryFormControl">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+                </xs:sequence>
+                <xs:anyAttribute processContents="skip" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- @see Concrete\Core\Export\Item\Express\Control\AssociationControl -->
+    <xs:complexType name="associationExpressEntryFormControl">
+        <xs:complexContent>
+            <xs:extension base="abstractExpressEntryFormControl">
+                <xs:attribute name="association" type="guid" use="required" />
+                <xs:attribute name="label-mask" type="xs:string" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- @see Concrete\Core\Export\Item\Express\Control\AttributeKeyControl -->
+    <xs:complexType name="attributeKeyExpressEntryFormControl">
+        <xs:complexContent>
+            <xs:extension base="abstractExpressEntryFormControl">
+                <xs:sequence>
+                    <xs:element name="attributekey" type="element-with-required-handle" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- @see Concrete\Core\Export\Item\Express\Control\AuthorControl -->
+    <xs:complexType name="authorExpressEntryFormControl">
+        <xs:complexContent>
+            <xs:extension base="abstractExpressEntryFormControl">
+                <xs:attribute name="type-id" type="xs:string" fixed="author" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- @see Concrete\Core\Export\Item\Express\Control\PublicIdentifierControl -->
+    <xs:complexType name="publicIdentifierExpressEntryFormControl">
+        <xs:complexContent>
+            <xs:extension base="abstractExpressEntryFormControl">
+                <xs:attribute name="type-id" type="xs:string" fixed="public-identifier" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- @see Concrete\Core\Export\Item\Express\Control\TextControl -->
+    <xs:complexType name="textExpressEntryFormControl">
+        <xs:complexContent>
+            <xs:extension base="abstractExpressEntryFormControl">
+                <xs:sequence>
+                    <xs:element name="headline" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="body" type="xs:string" minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+                <xs:attribute name="type-id" type="xs:string" fixed="text" use="required" />
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="expressEntries">
@@ -1574,6 +1643,7 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportFileImportantThumbnailTypesRoutine wip -->
     <xs:complexType name="thumbnailTypes">
         <xs:sequence>
             <xs:element name="thumbnailtype" minOccurs="1" maxOccurs="unbounded">
@@ -1771,6 +1841,11 @@
     <xs:complexType name="element-with-required-handle">
         <xs:attribute name="handle" type="handle-required" use="required" />
     </xs:complexType>
+    <xs:simpleType name="empty-attribute-category">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="" />
+        </xs:restriction>
+    </xs:simpleType>
     <xs:simpleType name="standard-attribute-category">
         <xs:restriction base="xs:string">
             <xs:enumeration value="collection" />
@@ -1781,6 +1856,9 @@
             <xs:enumeration value="site_type" />
             <xs:enumeration value="user" />
         </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="standard-attribute-category-or-empty">
+        <xs:union memberTypes="empty-attribute-category standard-attribute-category" />
     </xs:simpleType>
     <xs:simpleType name="date-time">
         <xs:restriction base="xs:string">
