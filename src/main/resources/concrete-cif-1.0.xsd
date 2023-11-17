@@ -132,7 +132,7 @@
         <xs:attribute name="package" type="handle" use="required" />
         <xs:attribute name="type" type="handle-required" use="required" />
         <!-- @see Concrete\Core\Entity\Attribute\Key\Key\StandardImportLoader -->
-        <xs:attribute name="name" type="non-empty-string" use="required" />
+        <xs:attribute name="name" type="string-required" use="required" />
         <xs:attribute name="indexed" type="zero-or-one" use="optional" />
         <xs:attribute name="internal" type="zero-or-one" use="optional" />
         <!-- @todo unused in Concrete\Core\Entity\Attribute\Key\Key\StandardImportLoader: remove it? or fix StandardImportLoader? -->
@@ -261,13 +261,7 @@
                                 </xs:simpleType>
                             </xs:attribute>
                             <xs:attribute name="text-custom-format" type="xs:string" use="optional" />
-                            <xs:attribute name="time-resolution" use="optional">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:integer">
-                                        <xs:minExclusive value="0" />
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:attribute>
+                            <xs:attribute name="time-resolution" type="integer-greather-than-zero" use="optional" />
                         </xs:complexType>
                     </xs:element>
                 </xs:sequence>
@@ -296,13 +290,7 @@
                                 </xs:simpleType>
                             </xs:attribute>
                             <xs:attribute name="text-custom-format" type="xs:string" use="optional" />
-                            <xs:attribute name="time-resolution" use="optional">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:integer">
-                                        <xs:minExclusive value="0" />
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:attribute>
+                            <xs:attribute name="time-resolution" type="integer-greather-than-zero" use="optional" />
                         </xs:complexType>
                     </xs:element>
                 </xs:sequence>
@@ -430,8 +418,8 @@
                 <xs:sequence>
                     <xs:element name="tree" minOccurs="1" maxOccurs="1">
                         <xs:complexType>
-                            <xs:attribute name="name" type="non-empty-string" use="required" />
-                            <xs:attribute name="path" type="non-empty-string" use="required" />
+                            <xs:attribute name="name" type="string-required" use="required" />
+                            <xs:attribute name="path" type="string-required" use="required" />
                             <xs:attribute name="allow-multiple-values" type="zero-or-one-or-empty" use="optional" />
                         </xs:complexType>
                     </xs:element>
@@ -481,7 +469,7 @@
                     <!-- @todo make it required, adding it to the core -->
                     <xs:attribute name="package" type="handle" use="optional" />
                     <!-- @todo make it required, adding it to the core -->
-                    <xs:attribute name="name" type="non-empty-string" use="optional" />
+                    <xs:attribute name="name" type="string-required" use="optional" />
                     <xs:attribute name="locked" type="zero-or-one" use="optional" />
                 </xs:complexType>
             </xs:element>
@@ -514,7 +502,7 @@
     <!-- @see ImportBannedWordsRoutine -->
     <xs:complexType name="bannedWords">
         <xs:sequence>
-            <xs:element name="banned_word" minOccurs="1" maxOccurs="unbounded" type="non-empty-string" />
+            <xs:element name="banned_word" type="string-required" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
 
@@ -542,7 +530,7 @@
                     <!-- @todo make it required, adding it to the core -->
                     <xs:attribute name="package" type="handle" use="optional" />
                     <!-- @todo make it required -->
-                    <xs:attribute name="name" type="non-empty-string" use="optional" />
+                    <xs:attribute name="name" type="string-required" use="optional" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -555,7 +543,7 @@
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -581,8 +569,8 @@
                     </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
-                    <xs:attribute name="icon" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
+                    <xs:attribute name="icon" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -593,11 +581,12 @@
         <xs:sequence>
             <xs:element name="template" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
+                    <!-- @todo remove text content -->
                     <xs:simpleContent>
                         <xs:extension base="empty-string-after-trim">
                             <xs:attribute name="package" type="handle" use="required" />
-                            <xs:attribute name="name" type="non-empty-string" use="required" />
-                            <xs:attribute name="icon" type="non-empty-string" use="required" />
+                            <xs:attribute name="name" type="string-required" use="required" />
+                            <xs:attribute name="icon" type="string-required" use="required" />
                             <xs:attribute name="handle" type="handle-required" use="required" />
                         </xs:extension>
                     </xs:simpleContent>
@@ -631,7 +620,7 @@
                             </xs:complexType>
                         </xs:element>
                     </xs:all>
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="template" type="handle-required" use="required" />
                     <xs:attribute name="sort" use="required">
                         <xs:simpleType>
@@ -662,7 +651,7 @@
     <xs:complexType name="abstractBoardDataSource">
         <xs:attribute name="source" type="handle-required" use="required" />
         <xs:attribute name="weight" type="xs:integer" use="required" />
-        <xs:attribute name="name" type="non-empty-string" use="required" />
+        <xs:attribute name="name" type="string-required" use="required" />
         <xs:attribute name="day-interval-future" type="xs:integer" use="required" />
         <xs:attribute name="day-interval-past" type="xs:integer" use="required" />
     </xs:complexType>
@@ -723,7 +712,7 @@
                                 </xs:element>
                             </xs:sequence>
                             <xs:attribute name="max-occurrences-of-event" type="integer-non-negative" use="required" />
-                            <xs:attribute name="calendar" type="non-empty-string" use="required" />
+                            <xs:attribute name="calendar" type="string-required" use="required" />
                         </xs:complexType>
                     </xs:element>
                 </xs:sequence>
@@ -738,7 +727,7 @@
     <!-- @see Concrete\Core\Search\Field\AbstractField -->
     <xs:complexType name="jsonBoardDataSourceField">
         <xs:simpleContent>
-            <xs:extension base="non-empty-string">
+            <xs:extension base="string-required">
                 <xs:attributeGroup ref="boardDataSourceFieldAttributes"/>
             </xs:extension>
         </xs:simpleContent>
@@ -765,7 +754,7 @@
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="xs:string">
-                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                            <xs:attribute name="name" type="string-required" use="required" />
                             <!-- @todo make it required, adding it to the core -->
                             <xs:attribute name="package" type="handle" use="optional" />
                         </xs:extension>
@@ -781,8 +770,8 @@
             <xs:element name="container" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
-                    <xs:attribute name="icon" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
+                    <xs:attribute name="icon" type="string-required" use="required" />
                     <xs:attribute name="handle" type="handle-required" use="required" />
                 </xs:complexType>
             </xs:element>
@@ -796,7 +785,7 @@
                 <xs:complexType>
                     <xs:attribute name="package" type="handle" use="required" />
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="activated" type="zero-or-one-or-empty" use="required" />
                 </xs:complexType>
             </xs:element>
@@ -810,7 +799,7 @@
                 <xs:complexType>
                     <xs:attribute name="package" type="handle" use="required" />
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="points" type="xs:integer" use="required" />
                 </xs:complexType>
             </xs:element>
@@ -822,7 +811,7 @@
         <xs:sequence>
             <xs:element name="tag" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
-                    <xs:attribute name="value" type="non-empty-string" use="required" />
+                    <xs:attribute name="value" type="string-required" use="required" />
                     <!-- @todo add package? -->
                 </xs:complexType>
             </xs:element>
@@ -926,7 +915,7 @@
                                                 </xs:element>
                                             </xs:sequence>
                                             <xs:attribute name="id" type="guid" use="required" />
-                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                            <xs:attribute name="name" type="string-required" use="required" />
                                         </xs:complexType>
                                     </xs:element>
                                 </xs:sequence>
@@ -936,7 +925,7 @@
                     <xs:attribute name="id" type="guid" use="required" />
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="plural_handle" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <!-- @todo it's exported but not imported -->
                     <xs:attribute name="supports_custom_display_order" type="zero-or-one-or-empty" use="optional" />
                     <xs:attribute name="include_in_public_list" type="zero-or-one-or-empty" use="optional" />
@@ -944,7 +933,7 @@
                     <xs:attribute name="description" type="xs:string" use="optional" />
                     <xs:attribute name="default_view_form" type="guid" use="optional" />
                     <xs:attribute name="default_edit_form" type="guid" use="optional" />
-                    <xs:attribute name="results-folder" type="non-empty-string" use="optional" />
+                    <xs:attribute name="results-folder" type="string-required" use="optional" />
                     <!-- @todo make it required, adding it to the core (also check if it's exported) -->
                     <xs:attribute name="package" type="handle" use="optional" />
                 </xs:complexType>
@@ -1050,7 +1039,7 @@
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:attribute>
-                    <xs:attribute name="label" type="non-empty-string" use="required" />
+                    <xs:attribute name="label" type="string-required" use="required" />
                     <xs:attribute name="entity" type="handle-required" use="required" />
                     <xs:attribute name="display-order" type="xs:integer" use="required" />
                 </xs:complexType>
@@ -1061,10 +1050,11 @@
     <!-- @see ImportConversationFlagTypesRoutine -->
     <xs:complexType name="flagTypes">
         <xs:sequence>
-            <xs:element name="flag_type" minOccurs="1" maxOccurs="unbounded" type="non-empty-string" />
+            <xs:element name="flag_type" type="string-required" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportGeolocatorsRoutine -->
     <xs:complexType name="geolocators">
         <xs:sequence>
             <xs:element name="geolocator" minOccurs="1" maxOccurs="unbounded">
@@ -1073,8 +1063,8 @@
                         <xs:element name="option" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                                 <xs:simpleContent>
-                                    <xs:extension base="xs:string">
-                                        <xs:attribute name="name" type="non-empty-string" use="required" />
+                                    <xs:extension base="string-required">
+                                        <xs:attribute name="name" type="string-required" use="required" />
                                     </xs:extension>
                                 </xs:simpleContent>
                             </xs:complexType>
@@ -1082,85 +1072,82 @@
                     </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="description" type="xs:string" use="optional" />
-                    <xs:attribute name="active" type="zero-or-one" use="optional" />
+                    <xs:attribute name="active" type="zero-or-one-or-empty" use="optional" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportGroupsRoutine -->
     <xs:complexType name="groups">
         <xs:sequence>
             <xs:element name="group" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
-                    <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="path" type="xs:string" use="optional" />
                     <xs:attribute name="description" type="xs:string" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportIpAccessControlCategoriesRoutine -->
     <xs:complexType name="ipAccessControlCategories">
         <xs:sequence>
             <xs:element name="ipaccesscontrolcategory" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
-                    <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
-                    <xs:attribute name="enabled" type="zero-or-one" use="required" />
+                    <xs:attribute name="handle" type="handle-required" use="required" />
+                    <xs:attribute name="enabled" type="zero-or-one-or-empty" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="max-events" use="required" type="integer-greather-than-zero" />
                     <xs:attribute name="time-window" use="required" type="integer-greather-than-zero" />
                     <xs:attribute name="ban-duration" use="required" type="integer-greather-than-zero" />
-                    <xs:attribute name="site-specific" use="required" type="zero-or-one" />
+                    <xs:attribute name="site-specific" use="required" type="zero-or-one-or-empty" />
                     <xs:attribute name="log-channel-handle" use="optional" type="handle-with-minus" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportJobsRoutine -->
     <xs:complexType name="jobs">
         <xs:sequence>
             <xs:element name="job" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
-                    <xs:simpleContent>
-                        <xs:extension base="empty-string-after-trim">
-                            <xs:attribute name="handle" type="handle-required" use="required" />
-                            <xs:attribute name="package" type="handle" use="required" />
-                        </xs:extension>
-                    </xs:simpleContent>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="jobSets">
-        <xs:sequence>
-            <xs:element name="jobset" minOccurs="1" maxOccurs="unbounded">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="job" minOccurs="1" maxOccurs="unbounded">
-                            <xs:complexType>
-                                <xs:attribute name="handle" type="handle-required" use="required" />
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportJobSetsRoutine -->
+    <xs:complexType name="jobSets">
+        <xs:sequence>
+            <xs:element name="jobset" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="job" type="element-with-required-handle" minOccurs="1" maxOccurs="unbounded" />
+                    </xs:sequence>
+                    <xs:attribute name="name" type="string-required" use="required" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- @see ImportPackagesRoutine -->
     <xs:complexType name="packages">
         <xs:sequence>
             <xs:element name="package" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <xs:attribute name="full-content-swap" type="true-or-empty" use="optional" />
-                    <xs:attribute name="content-swap-file" type="non-empty-string" use="optional" />
+                    <xs:attribute name="full-content-swap" type="xs:string" fixed="true" use="optional" />
+                    <xs:attribute name="content-swap-file" type="string-required" use="optional" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1172,8 +1159,8 @@
                 <xs:complexType>
                     <xs:all>
                         <xs:element name="handle" type="handle-required" minOccurs="1" maxOccurs="1" />
-                        <xs:element name="parent" minOccurs="0" maxOccurs="1" type="non-empty-string" />
-                        <xs:element name="title" type="non-empty-string" minOccurs="1" maxOccurs="1" />
+                        <xs:element name="parent" minOccurs="0" maxOccurs="1" type="string-required" />
+                        <xs:element name="title" type="string-required" minOccurs="1" maxOccurs="1" />
                         <xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1" />
                         <xs:element name="descendents" type="zero-or-one" minOccurs="0" maxOccurs="1" />
                         <xs:element name="aliases" type="zero-or-one" minOccurs="0" maxOccurs="1" />
@@ -1203,9 +1190,10 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportPageContentRoutine wip -->
     <xs:complexType name="pages">
         <xs:sequence>
-            <xs:element name="page" minOccurs="1" maxOccurs="unbounded" type="page" />
+            <xs:element name="page" type="page" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
 
@@ -1215,7 +1203,7 @@
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="icon" type="xs:string" use="optional" />
                     <xs:attribute name="internal" type="zero-or-one-or-empty" use="optional" />
                 </xs:complexType>
@@ -1229,7 +1217,7 @@
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1257,7 +1245,7 @@
                                         </xs:restriction>
                                     </xs:simpleType>
                                 </xs:attribute>
-                                <xs:attribute name="default" type="non-empty-string" use="required" />
+                                <xs:attribute name="default" type="string-required" use="required" />
                             </xs:complexType>
                         </xs:element>
                         <xs:element name="target" minOccurs="0" maxOccurs="1">
@@ -1316,7 +1304,7 @@
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <!-- @todo add empty package in every xml -->
                     <xs:attribute name="package" type="handle" use="optional" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="internal" type="zero-or-one" use="optional" />
                     <xs:attribute name="site-type" type="handle" use="optional" />
                     <xs:attribute name="launch-in-composer" type="zero-or-one" use="optional" />
@@ -1332,7 +1320,7 @@
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1386,14 +1374,14 @@
                                 <xs:sequence>
                                     <xs:element name="group" minOccurs="0" maxOccurs="unbounded">
                                         <xs:complexType>
-                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                            <xs:attribute name="name" type="string-required" use="required" />
                                             <xs:attribute name="description" type="xs:string" use="required" />
                                         </xs:complexType>
                                     </xs:element>
                                     <xs:element name="entity" minOccurs="0" maxOccurs="unbounded">
                                         <xs:complexType>
                                             <xs:attribute name="type" type="handle-required" use="required" />
-                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                            <xs:attribute name="name" type="string-required" use="required" />
                                         </xs:complexType>
                                     </xs:element>
                                 </xs:sequence>
@@ -1403,7 +1391,7 @@
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
                     <xs:attribute name="category" type="handle-required" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="description" type="xs:string" use="optional" />
                     <xs:attribute name="can-trigger-workflow" type="zero-or-one-or-true" use="optional" />
                     <xs:attribute name="has-custom-class" type="zero-or-one-or-true" use="optional" />
@@ -1412,6 +1400,7 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportPageContentRoutine wip -->
     <xs:complexType name="page">
         <xs:sequence>
             <xs:element name="attributes" minOccurs="0" maxOccurs="1">
@@ -1425,7 +1414,7 @@
                                             <xs:sequence>
                                                 <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
                                                     <xs:simpleType>
-                                                        <xs:restriction base="non-empty-string" />
+                                                        <xs:restriction base="string-required" />
                                                     </xs:simpleType>
                                                 </xs:element>
                                             </xs:sequence>
@@ -1483,7 +1472,7 @@
                     <xs:sequence>
                         <xs:element name="area" type="area" minOccurs="1" maxOccurs="1" />
                     </xs:sequence>
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="type" use="optional">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
@@ -1504,7 +1493,7 @@
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1516,7 +1505,7 @@
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1558,7 +1547,7 @@
                                 <xs:sequence>
                                     <xs:element name="tag" minOccurs="1" maxOccurs="unbounded">
                                         <xs:complexType>
-                                            <xs:attribute name="value" type="non-empty-string" use="required" />
+                                            <xs:attribute name="value" type="string-required" use="required" />
                                         </xs:complexType>
                                     </xs:element>
                                 </xs:sequence>
@@ -1567,8 +1556,8 @@
                     </xs:all>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
-                    <xs:attribute name="icon" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
+                    <xs:attribute name="icon" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1578,9 +1567,9 @@
         <xs:sequence>
             <xs:element name="library" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
-                    <xs:attribute name="handle" type="non-empty-string" use="required" />
+                    <xs:attribute name="handle" type="string-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="activated" type="zero-or-one" use="required" />
                 </xs:complexType>
             </xs:element>
@@ -1593,7 +1582,7 @@
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="activated" type="zero-or-one" use="required" />
                 </xs:complexType>
             </xs:element>
@@ -1625,7 +1614,7 @@
                     </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1643,26 +1632,26 @@
         </xs:sequence>
     </xs:complexType>
 
-    <!-- @see ImportFileImportantThumbnailTypesRoutine wip -->
+    <!-- @see ImportFileImportantThumbnailTypesRoutine -->
     <xs:complexType name="thumbnailTypes">
         <xs:sequence>
             <xs:element name="thumbnailtype" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
-                    <xs:all>
+                    <xs:sequence>
                         <xs:element name="filesets" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                                 <xs:sequence>
                                     <xs:element name="fileset" minOccurs="1" maxOccurs="unbounded">
                                         <xs:complexType>
-                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                            <xs:attribute name="name" type="string-required" use="required" />
                                         </xs:complexType>
                                     </xs:element>
                                 </xs:sequence>
                             </xs:complexType>
                         </xs:element>
-                    </xs:all>
+                    </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="sizingMode" use="optional">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
@@ -1673,20 +1662,8 @@
                     </xs:attribute>
                     <xs:attribute name="upscalingEnabled" type="zero-or-one-or-empty" use="optional" />
                     <xs:attribute name="keepAnimations" type="zero-or-one-or-empty" use="optional" />
-                    <xs:attribute name="width">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:integer">
-                                <xs:minExclusive value="0" />
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:attribute>
-                    <xs:attribute name="height">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:integer">
-                                <xs:minExclusive value="0" />
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:attribute>
+                    <xs:attribute name="width" type="integer-greather-than-zero" use="optional" />
+                    <xs:attribute name="height" type="integer-greather-than-zero" use="optional" />
                     <xs:attribute name="required" type="zero-or-one-or-empty" use="optional" />
                     <xs:attribute name="limitedToFileSets" type="zero-or-one-or-empty" use="optional" />
                 </xs:complexType>
@@ -1704,11 +1681,11 @@
                                 <xs:sequence>
                                     <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
                                         <xs:complexType>
-                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                            <xs:attribute name="name" type="string-required" use="required" />
                                         </xs:complexType>
                                     </xs:element>
                                 </xs:sequence>
-                                <xs:attribute name="name" type="non-empty-string" use="required" />
+                                <xs:attribute name="name" type="string-required" use="required" />
                                 <xs:attribute name="default" type="zero-or-one-or-empty" use="optional" />
                             </xs:complexType>
                         </xs:element>
@@ -1717,17 +1694,17 @@
                                 <xs:sequence>
                                     <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
                                         <xs:complexType>
-                                            <xs:attribute name="name" type="non-empty-string" use="required" />
+                                            <xs:attribute name="name" type="string-required" use="required" />
                                         </xs:complexType>
                                     </xs:element>
                                 </xs:sequence>
-                                <xs:attribute name="name" type="non-empty-string" use="required" />
+                                <xs:attribute name="name" type="string-required" use="required" />
                                 <xs:attribute name="default" type="zero-or-one-or-empty" use="optional" />
                             </xs:complexType>
                         </xs:element>
                         <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
-                                <xs:attribute name="name" type="non-empty-string" use="required" />
+                                <xs:attribute name="name" type="string-required" use="required" />
                             </xs:complexType>
                         </xs:element>
                     </xs:sequence>
@@ -1738,7 +1715,7 @@
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:attribute>
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1761,7 +1738,7 @@
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="name" type="non-empty-string" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1769,7 +1746,7 @@
 
     <!-- Common types -->
 
-    <xs:simpleType name="non-empty-string">
+    <xs:simpleType name="string-required">
         <xs:restriction base="xs:string">
             <xs:minLength value="1 " />
             <xs:pattern value=".*\S.*" />
@@ -1933,6 +1910,6 @@
                 </xs:complexType>
             </xs:element>
         </xs:all>
-        <xs:attribute name="name" type="non-empty-string" />
+        <xs:attribute name="name" type="string-required" />
     </xs:complexType>
 </xs:schema>
