@@ -148,10 +148,10 @@
         <xs:attribute name="member-list-displayed" type="zero-or-one" use="optional" />
         <!-- @see Concrete\Core\Attribute\Category\ExpressCategory -->
         <xs:assert test="@category = 'express' or not(@unique)">
-           <xs:annotation>
-               <xs:documentation>This attribute is only for express attribues</xs:documentation>
-           </xs:annotation>
-       </xs:assert>
+            <xs:annotation>
+                <xs:documentation>This attribute is only for express attribues</xs:documentation>
+            </xs:annotation>
+        </xs:assert>
         <!-- @see Concrete\Core\Attribute\Category\UserCategory -->
         <xs:assert test="@category = 'user' or not(@profile-displayed)">
             <xs:annotation>
@@ -466,9 +466,9 @@
                     </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="category" type="standard-attribute-category" use="required" />
-                    <!-- @todo make it required, adding it to the core -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="package" type="handle" use="optional" />
-                    <!-- @todo make it required, adding it to the core -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="name" type="string-required" use="optional" />
                     <xs:attribute name="locked" type="zero-or-one" use="optional" />
                 </xs:complexType>
@@ -492,7 +492,7 @@
                     </xs:all>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <!-- @todo make it required, adding it to the core -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="name" type="xs:string" use="optional" />
                 </xs:complexType>
             </xs:element>
@@ -527,9 +527,9 @@
                         <xs:element name="blocktype" type="element-with-required-handle" minOccurs="1" maxOccurs="unbounded" />
                     </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- @todo make it required, adding it to the core -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="package" type="handle" use="optional" />
-                    <!-- @todo make it required -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="name" type="string-required" use="optional" />
                 </xs:complexType>
             </xs:element>
@@ -581,15 +581,10 @@
         <xs:sequence>
             <xs:element name="template" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
-                    <!-- @todo remove text content -->
-                    <xs:simpleContent>
-                        <xs:extension base="empty-string-after-trim">
-                            <xs:attribute name="package" type="handle" use="required" />
-                            <xs:attribute name="name" type="string-required" use="required" />
-                            <xs:attribute name="icon" type="string-required" use="required" />
-                            <xs:attribute name="handle" type="handle-required" use="required" />
-                        </xs:extension>
-                    </xs:simpleContent>
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
+                    <xs:attribute name="icon" type="string-required" use="required" />
+                    <xs:attribute name="handle" type="handle-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -631,7 +626,7 @@
                         </xs:simpleType>
                     </xs:attribute>
                     <xs:attribute name="uses-custom-template-subset" type="zero-or-one-or-empty" use="required" />
-                    <!-- @todo It's not used in the import routine -->
+                    <!-- @todo not used in the import routine? -->
                     <xs:attribute name="package" type="handle" use="required" />
                     <xs:assert test="@uses-custom-template-subset = '1' or not(templates)">
                         <xs:annotation>
@@ -755,7 +750,7 @@
                     <xs:simpleContent>
                         <xs:extension base="xs:string">
                             <xs:attribute name="name" type="string-required" use="required" />
-                            <!-- @todo make it required, adding it to the core -->
+                            <!-- @todo make it use="required"? -->
                             <xs:attribute name="package" type="handle" use="optional" />
                         </xs:extension>
                     </xs:simpleContent>
@@ -926,7 +921,7 @@
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="plural_handle" type="handle" use="required" />
                     <xs:attribute name="name" type="string-required" use="required" />
-                    <!-- @todo it's exported but not imported -->
+                    <!-- @todo it's exported but not imported? -->
                     <xs:attribute name="supports_custom_display_order" type="zero-or-one-or-empty" use="optional" />
                     <xs:attribute name="include_in_public_list" type="zero-or-one-or-empty" use="optional" />
                     <xs:attribute name="use_separate_site_result_buckets" type="zero-or-one-or-empty" use="optional" />
@@ -934,7 +929,7 @@
                     <xs:attribute name="default_view_form" type="guid" use="optional" />
                     <xs:attribute name="default_edit_form" type="guid" use="optional" />
                     <xs:attribute name="results-folder" type="string-required" use="optional" />
-                    <!-- @todo make it required, adding it to the core (also check if it's exported) -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="package" type="handle" use="optional" />
                 </xs:complexType>
             </xs:element>
@@ -1153,6 +1148,7 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportPageFeedsRoutine wip -->
     <xs:complexType name="pageFeeds">
         <xs:sequence>
             <xs:element name="feed" minOccurs="1" maxOccurs="unbounded">
@@ -1190,11 +1186,356 @@
         </xs:sequence>
     </xs:complexType>
 
-    <!-- @see ImportPageContentRoutine wip -->
+    <!-- @see ImportPageContentRoutine -->
     <xs:complexType name="pages">
         <xs:sequence>
             <xs:element name="page" type="page" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
+    </xs:complexType>
+
+    <!-- @see ImportPageContentRoutine -->
+    <!-- @see Concrete\Core\Page\Exporter -->
+    <xs:complexType name="page">
+        <xs:sequence>
+            <xs:element name="attributes" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="attributekey" minOccurs="1" maxOccurs="unbounded">
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'account_profile_links'" type="socialLinksAttributeValue" />
+                            <!-- concrete/config/install/packages/atomik_full/content.xml + concrete/config/install/packages/elemental_full/content.xml -->
+                            <xs:alternative test="@handle = 'blog_entry_topics'" type="topicsAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'desktop_priority'" type="numberAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'duration'" type="numberAttributeValue" />
+                            <!-- concrete/config/install/packages/elemental_full/content.xml -->
+                            <xs:alternative test="@handle = 'event_categories'" type="topicsAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'exclude_nav'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'exclude_page_list'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'exclude_search_index'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'exclude_sitemapxml'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml + concrete/config/install/packages/atomik_full/content.xml -->
+                            <xs:alternative test="@handle = 'exclude_subpages_from_nav'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'header_extra_content'" type="textareaAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'height'" type="numberAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'icon_dashboard'" type="textareaAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'is_desktop'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'is_featured'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/packages/elemental_full/content.xml -->
+                            <xs:alternative test="@handle = 'job_location'" type="textareaAttributeValue" />
+                            <!-- concrete/config/install/packages/elemental_full/content.xml -->
+                            <xs:alternative test="@handle = 'job_posting_department'" type="selectAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'meta_description'" type="textareaAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'meta_keywords'" type="textareaAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'meta_title'" type="textAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'profile_private_messages_enabled'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'profile_private_messages_notification_enabled'" type="booleanAttributeValue" />
+                            <!-- concrete/config/install/packages/elemental_full/content.xml -->
+                            <xs:alternative test="@handle = 'project_client'" type="textAttributeValue" />
+                            <!-- concrete/config/install/packages/elemental_full/content.xml -->
+                            <xs:alternative test="@handle = 'project_skills'" type="selectAttributeValue" />
+                            <!-- concrete/config/install/packages/elemental_full/content.xml -->
+                            <xs:alternative test="@handle = 'project_tasks'" type="selectAttributeValue" />
+                            <!-- concrete/config/install/packages/elemental_full/content.xml -->
+                            <xs:alternative test="@handle = 'project_topics'" type="topicsAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'tags'" type="selectAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml + concrete/config/install/packages/atomik_full/content.xml -->
+                            <xs:alternative test="@handle = 'thumbnail'" type="imageFileAttributeValue" />
+                            <!-- concrete/config/install/base/attributes.xml -->
+                            <xs:alternative test="@handle = 'width'" type="numberAttributeValue" />
+                            <xs:alternative type="otherAttributeValue" />
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="area" minOccurs="0" maxOccurs="unbounded" type="area" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="optional" />
+        <xs:attribute name="path" type="xs:string" use="optional" />
+        <xs:attribute name="public-date" type="date-time" use="optional" />
+        <!-- @todo unused? -->
+        <xs:attribute name="filename" type="xs:string" use="optional" />
+        <xs:attribute name="pagetype" type="handle" use="optional" />
+        <!-- @todo unused? -->
+        <xs:attribute name="template" type="xs:string" use="optional" />
+        <!-- @todo unused? -->
+        <xs:attribute name="user" type="xs:string" use="optional" />
+        <xs:attribute name="description" type="xs:string" use="optional" />
+        <!-- todo add empty package in every xml? -->
+        <xs:attribute name="package" type="handle" use="optional" />
+        <xs:attribute name="global" type="true-or-empty" use="optional" />
+        <xs:attribute name="root" type="true-or-empty" use="optional" />
+        <xs:attribute name="custom-path" type="xs:string" use="optional" />
+    </xs:complexType>
+
+    <xs:complexType name="abstractAttributeValue">
+        <xs:attribute name="handle" type="handle-required" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="otherAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+                </xs:sequence>
+                <xs:anyAttribute processContents="skip" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="_defaultAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="addressAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                            <xs:all>
+                                <xs:element name="address1" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="address2" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="city" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="state-province" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="country" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="postal-code" type="xs:string" minOccurs="0" maxOccurs="1" />
+                            </xs:all>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="booleanAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" minOccurs="1" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:minInclusive value="0" />
+                                <xs:maxInclusive value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="calendarAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="calendarEventAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="numberAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="dateTimeAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" type="date-time" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="durationAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="emailAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="expressAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="imageFileAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" minOccurs="1" maxOccurs="1">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="fID" minOccurs="0" maxOccurs="1">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:pattern value="|0|(\{ccm:export:file:.+\})" />
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="numberAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="pageSelectorAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ratingAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="selectAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="option" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="siteAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="socialLinksAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="link" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:attribute name="service" type="handle-required" use="required" />
+                            <xs:attribute name="detail" type="xs:string" use="required" />
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="telephoneAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="textAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="textareaAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="topicsAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="topics" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="topic" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="urlAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="_defaultAttributeValue" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="userGroupAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="userSelectorAttributeValue">
+        <xs:complexContent>
+            <xs:extension base="abstractAttributeValue">
+                <xs:sequence>
+                    <xs:element name="value" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:minInclusive value="0" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="pageTemplates">
@@ -1302,7 +1643,7 @@
                         </xs:element>
                     </xs:all>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- @todo add empty package in every xml -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="package" type="handle" use="optional" />
                     <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="internal" type="zero-or-one" use="optional" />
@@ -1356,7 +1697,7 @@
             <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- todo add empty package in every xml? -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="package" type="handle" use="optional" />
                 </xs:complexType>
             </xs:element>
@@ -1400,53 +1741,6 @@
         </xs:sequence>
     </xs:complexType>
 
-    <!-- @see ImportPageContentRoutine wip -->
-    <xs:complexType name="page">
-        <xs:sequence>
-            <xs:element name="attributes" minOccurs="0" maxOccurs="1">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="attributekey" minOccurs="1" maxOccurs="unbounded">
-                            <xs:complexType>
-                                <xs:all>
-                                    <xs:element name="topics" minOccurs="0" maxOccurs="1">
-                                        <xs:complexType>
-                                            <xs:sequence>
-                                                <xs:element name="topic" minOccurs="0" maxOccurs="unbounded">
-                                                    <xs:simpleType>
-                                                        <xs:restriction base="string-required" />
-                                                    </xs:simpleType>
-                                                </xs:element>
-                                            </xs:sequence>
-                                        </xs:complexType>
-                                    </xs:element>
-                                    <xs:element name="value" minOccurs="0" maxOccurs="1" />
-                                </xs:all>
-                                <xs:attribute name="handle" type="handle-required" />
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="area" minOccurs="0" maxOccurs="unbounded" type="area" />
-        </xs:sequence>
-        <!-- todo add empty package in every xml? -->
-        <xs:attribute name="package" type="handle" use="optional" />
-        <xs:attribute name="path" type="xs:string" use="optional" />
-        <xs:attribute name="name" type="xs:string" use="optional" />
-        <xs:attribute name="pagetype" type="handle" use="optional" />
-        <xs:attribute name="custom-path" type="xs:string" use="optional" />
-        <xs:attribute name="description" type="xs:string" use="optional" />
-        <xs:attribute name="global" type="true-or-empty" use="optional" />
-        <xs:attribute name="root" type="true-or-empty" use="optional" />
-        <xs:attribute name="public-date" type="date-time" use="optional" />
-        <!-- @todo unused -->
-        <xs:attribute name="filename" type="xs:string" use="optional" />
-        <!-- @todo unused -->
-        <xs:attribute name="user" type="xs:string" use="optional" />
-        <!-- @todo unused -->
-        <xs:attribute name="template" type="xs:string" use="optional" />
-    </xs:complexType>
 
     <xs:complexType name="singlePages">
         <xs:sequence>
@@ -1594,7 +1888,7 @@
             <xs:element name="task" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- todo add empty package in every xml? -->
+                    <!-- @todo make it use="required"? -->
                     <xs:attribute name="package" type="handle" use="optional" />
                 </xs:complexType>
             </xs:element>
@@ -1757,11 +2051,6 @@
             <xs:maxLength value="0" />
         </xs:restriction>
     </xs:simpleType>
-    <xs:simpleType name="empty-string-after-trim">
-        <xs:restriction base="xs:string">
-            <xs:pattern value="\s*" />
-        </xs:restriction>
-    </xs:simpleType>
     <xs:simpleType name="handle">
         <xs:restriction base="xs:string">
             <xs:maxLength value="255 " />
@@ -1857,13 +2146,23 @@
             <xs:pattern value="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}" />
         </xs:restriction>
     </xs:simpleType>
+
+    <!-- @see AbstractPageContentRoutine -->
     <xs:complexType name="area">
         <xs:all>
+            <!-- @see Concrete\Core\StyleCustomizer\Inline\StyleSet::import() -->
+            <!-- @see Concrete\Core\Entity\StyleCustomizer\Inline\StyleSet::export() -->
             <xs:element name="style" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                     <xs:all>
                         <xs:element name="backgroundColor" minOccurs="0" maxOccurs="1" type="xs:string" />
-                        <xs:element name="backgroundImage" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="backgroundImage" minOccurs="0" maxOccurs="1">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value="(\{ccm:export:file:.+\})?" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
                         <xs:element name="backgroundRepeat" minOccurs="0" maxOccurs="1" type="xs:string" />
                         <xs:element name="backgroundSize" minOccurs="0" maxOccurs="1" type="xs:string" />
                         <xs:element name="backgroundPosition" minOccurs="0" maxOccurs="1" type="xs:string" />
@@ -1886,8 +2185,8 @@
                         <xs:element name="rotate" minOccurs="0" maxOccurs="1" type="xs:string" />
                         <xs:element name="boxShadowHorizontal" minOccurs="0" maxOccurs="1" type="xs:string" />
                         <xs:element name="boxShadowVertical" minOccurs="0" maxOccurs="1" type="xs:string" />
-                        <xs:element name="boxShadowSpread" minOccurs="0" maxOccurs="1" type="xs:string" />
                         <xs:element name="boxShadowBlur" minOccurs="0" maxOccurs="1" type="xs:string" />
+                        <xs:element name="boxShadowSpread" minOccurs="0" maxOccurs="1" type="xs:string" />
                         <xs:element name="boxShadowColor" minOccurs="0" maxOccurs="1" type="xs:string" />
                         <xs:element name="boxShadowInset" minOccurs="0" maxOccurs="1" type="zero-or-one-or-empty" />
                         <xs:element name="customClass" minOccurs="0" maxOccurs="1" type="xs:string" />
@@ -1904,7 +2203,7 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="block" minOccurs="0" maxOccurs="unbounded">
-                            <!-- @todo add required "type" attribute (handle) and optional "name" attribute (string), still allowing any content -->
+                            <!-- wip add required "type" attribute (handle) and optional "name" attribute (string), still allowing any content -->
                         </xs:element>
                     </xs:sequence>
                 </xs:complexType>
