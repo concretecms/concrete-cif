@@ -114,8 +114,6 @@ public class App {
 			this.standardOutput.println("No file specified.");
 			return 0;
 		}
-		System.setProperty("javax.xml.validation.SchemaFactory:http://www.w3.org/XML/XMLSchema/v1.1",
-				"org.apache.xerces.jaxp.validation.XMLSchema11Factory");
 		SchemaValidator validator;
 		try {
 			validator = new SchemaValidator(getXSDResource());
