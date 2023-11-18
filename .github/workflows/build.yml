@@ -18,6 +18,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    env:
+      MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
     steps:
       - name: Check new version
         if: github.event_name == 'create' && github.event.ref_type == 'tag'
@@ -43,7 +45,7 @@ jobs:
       -
         name: Update version
         if: steps.check-tag.outputs.tag
-        run: mvn org.eclipse.tycho:tycho-versions-plugin:set-version "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
+        run: mvn --batch-mode -Dstyle.color=always org.eclipse.tycho:tycho-versions-plugin:set-version "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
       -
         name: Compile
         run: mvn --batch-mode -Dstyle.color=always compile
