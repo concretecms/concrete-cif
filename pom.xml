@@ -28,29 +28,32 @@
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>
-			<version>1.4.01</version>
+			<version>1.4.02</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- @see https://blog.adamretter.org.uk/xerces-xsd11-maven/ -->
 		<dependency>
-			<groupId>org.exist-db.thirdparty.xerces</groupId>
+			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
 			<version>2.12.2</version>
 			<classifier>xml-schema-1.1</classifier>
 			<scope>compile</scope>
 		</dependency>
-		<!-- xpath2 and java-cup are needed at runtime
-        for xercesImpl Schema 1.1 support -->
 		<dependency>
-			<groupId>org.exist-db.thirdparty.org.eclipse.wst.xml</groupId>
+			<groupId>org.eclipse.wst.xml</groupId>
 			<artifactId>xpath2</artifactId>
-			<version>1.2.0</version>
+			<version>1.2.1</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>edu.princeton.cup</groupId>
 			<artifactId>java-cup</artifactId>
 			<version>10k</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>4.2</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -86,25 +89,31 @@
 				<configuration>
 					<filters>
 						<filter>
-							<artifact>xerces:*</artifact>
-							<excludes>
-								<exclude>META-INF/*.MF</exclude>
-							</excludes>
-						</filter>
-						<filter>
 							<artifact>xml-apis:*</artifact>
 							<excludes>
 								<exclude>META-INF/*.MF</exclude>
 							</excludes>
 						</filter>
 						<filter>
-							<artifact>org.exist-db.thirdparty.*</artifact>
+							<artifact>xerces:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.MF</exclude>
+							</excludes>
+						</filter>
+						<filter>
+							<artifact>org.eclipse.wst.xml:*</artifact>
 							<excludes>
 								<exclude>META-INF/*.MF</exclude>
 							</excludes>
 						</filter>
 						<filter>
 							<artifact>edu.princeton.cup:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.MF</exclude>
+							</excludes>
+						</filter>
+						<filter>
+							<artifact>com.ibm.icu:*</artifact>
 							<excludes>
 								<exclude>META-INF/*.MF</exclude>
 							</excludes>
