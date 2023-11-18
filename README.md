@@ -21,3 +21,10 @@ In order to solve this problem, you can use the [`concrete-cif.jar` app](https:/
    ```sh
    java -jar concrete-cif.jar /path/to/concrete
    ```
+
+## Compiling `concrete-cif.jar`
+
+1. You need a Java JDK (at least 17) - see for example [Eclipse Temurin](https://adoptium.net/)
+2. You need [Apache Maven](https://maven.apache.org/)
+3. You need to download Xerces locally by using the `bin/install-xerces-m2.sh` script (on Windows: `bin\install-xerces-m2.bat`)
+4. Run `mvn verify`

@@ -41,7 +41,7 @@ jobs:
           cache: maven
       -
         name: Install Xerces with XSD 1.1 support in local M2 repository
-        run: ./install-xerces-m2.sh
+        run: ./bin/install-xerces-m2.sh
       -
         name: Update version
         if: steps.check-tag.outputs.tag
