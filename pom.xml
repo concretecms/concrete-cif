@@ -25,6 +25,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
+		<!-- # NOTE: These versions should be un sync with the ones of the install-xerces-m2.sh file -->
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>
