@@ -54,6 +54,15 @@ jobs:
         name: Print version
         run: java -jar concrete-cif.jar --version
       -
+        name: Copy jar to temporary folder
+        run: cp concrete-cif.jar /tmp/
+      -
+        name: Test good CIFs with jar
+        run: cd /tmp && java -jar concrete-cif.jar "$GITHUB_WORKSPACE/src/test/resources/cifs-good"
+      -
+        name: Test bad CIFs with jar
+        run: cd /tmp && ! java -jar concrete-cif.jar "$GITHUB_WORKSPACE/src/test/resources/cifs-bad"
+      -
         name: Calculate hash
         if: steps.check-tag.outputs.tag
         run: sha1sum concrete-cif.jar | tee -a concrete-cif.jar.sha1
