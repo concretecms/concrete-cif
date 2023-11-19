@@ -1,12 +1,28 @@
 @echo off
 setlocal enableextensions
 
-rem NOTE: These versions should be un sync with the ones of the pom.xml file
+rem NOTE: These versions should be un sync with the ones of the /pom.xml and /bin/install-xerces-m2.sh files
 set XERCES_VERSION=2.12.2
 set XMLAPIS_VERSION=1.4.02
 set XPATH_VERSION=1.2.1
 set JAVACUP_VERSION=10k
 set ICU4J_VERSION=4.2
+
+echo|set /p="Checking environment... "
+for /f %%i in ('mvn help:evaluate "-Dexpression=settings.localRepository" -q -DforceStdout') do set M2_PATH=%%i
+if exist "%M2_PATH%\xml-apis\xml-apis\%XMLAPIS_VERSION%\xml-apis-%XMLAPIS_VERSION%.jar" (
+    if exist "%M2_PATH%\xerces\xercesImpl\%XERCES_VERSION%\xercesImpl-%XERCES_VERSION%-xml-schema-1.1.jar" (
+        if exist "%M2_PATH%\\org\eclipse\wst\xml\xpath2\%XPATH_VERSION%\xpath2-%XPATH_VERSION%.jar" (
+            if exist "%M2_PATH%\edu\princeton\cup\java-cup\%JAVACUP_VERSION%\java-cup-%JAVACUP_VERSION%.jar" (
+                if exist "%M2_PATH%\com\ibm\icu\icu4j\%ICU4J_VERSION%\icu4j-%ICU4J_VERSION%.jar" (
+                    echo xerces is already installed.
+                    exit /b 0
+                )
+            )
+        )
+    )
+)
+echo we need to install xerces.
 
 echo|set /p="Creating temporary directory... "
 :newDownloaDir

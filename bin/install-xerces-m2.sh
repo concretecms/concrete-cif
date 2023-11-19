@@ -3,19 +3,33 @@
 set -o errexit
 set -o nounset
 
-# NOTE: These versions should be un sync with the ones of the pom.xml file
+# NOTE: These versions should be un sync with the ones of the /pom.xml and /bin/install-xerces-m2.bat files
 XERCES_VERSION=2.12.2
 XMLAPIS_VERSION=1.4.02
 XPATH_VERSION=1.2.1
 JAVACUP_VERSION=10k
 ICU4J_VERSION=4.2
 
+printf 'Checking environment... '
+M2_PATH="$(mvn help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)"
+if true \
+    && [ -f "$M2_PATH/xml-apis/xml-apis/$XMLAPIS_VERSION/xml-apis-$XMLAPIS_VERSION.jar" ] \
+    && [ -f "$M2_PATH/xerces/xercesImpl/$XERCES_VERSION/xercesImpl-$XERCES_VERSION-xml-schema-1.1.jar" ] \
+    && [ -f "$M2_PATH/org/eclipse/wst/xml/xpath2/$XPATH_VERSION/xpath2-$XPATH_VERSION.jar" ] \
+    && [ -f "$M2_PATH/edu/princeton/cup/java-cup/$JAVACUP_VERSION/java-cup-$JAVACUP_VERSION.jar" ] \
+    && [ -f "$M2_PATH/com/ibm/icu/icu4j/$ICU4J_VERSION/icu4j-$ICU4J_VERSION.jar" ] \
+; then
+    printf 'xerces is already installed.\n'
+    exit 0
+fi
+printf 'we need to install xerces.\n'
+
 printf 'Creating temporary directory... '
 DOWNLOAD_DIR="$(mktemp -d)"
 printf 'done.\n'
 
 printf 'Downloading and extracting xerces... '
-curl -sSLf "https://dlcdn.apache.org//xerces/j/binaries/Xerces-J-bin.$XERCES_VERSION-xml-schema-1.1.tar.gz" | tar -xz -C "$DOWNLOAD_DIR" --strip-components=1
+curl -sSLf "https://dlcdn.apache.org/xerces/j/binaries/Xerces-J-bin.$XERCES_VERSION-xml-schema-1.1.tar.gz" | tar -xz -C "$DOWNLOAD_DIR" --strip-components=1
 printf 'done.\n'
 
 printf 'Checking versions...'
