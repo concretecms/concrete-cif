@@ -32,11 +32,11 @@ printf 'Downloading and extracting xerces... '
 curl -sSLf "https://dlcdn.apache.org/xerces/j/binaries/Xerces-J-bin.$XERCES_VERSION-xml-schema-1.1.tar.gz" | tar -xz -C "$DOWNLOAD_DIR" --strip-components=1
 printf 'done.\n'
 
-printf 'Checking versions...'
+printf 'Checking versions... '
 checkJarVersion() {
     checkJarVersion_found="$(unzip -p "$DOWNLOAD_DIR/$1" META-INF/MANIFEST.MF | tr -d '\r' | grep -m 1 -E 'Bundle-Version:|Implementation-Version:' | cut -d' ' -f 2)"
     if [ "$2" != "$checkJarVersion_found" ]; then
-        printf "The version of %s should be >%s<, but it's >%s<\n" "$1" "$2" "$checkJarVersion_found"
+        printf "The version of %s should be %s, but it's %s\n" "$1" "$2" "$checkJarVersion_found"
         exit 1
     fi
 }

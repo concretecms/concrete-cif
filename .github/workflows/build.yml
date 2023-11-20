@@ -17,12 +17,20 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+        include:
+          - os: ubuntu-latest
+            may-publish: true
+    runs-on: ${{ matrix.os }}
     env:
       MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
     steps:
       - name: Check new version
-        if: github.event_name == 'create' && github.event.ref_type == 'tag'
+        if: matrix.may-publish && github.event_name == 'create' && github.event.ref_type == 'tag'
         id: check-tag
         run: |
           tagName="${GITHUB_REF#refs/tags/}"
@@ -40,30 +48,34 @@ jobs:
           distribution: temurin
           cache: maven
       -
-        name: Install Xerces with XSD 1.1 support in local M2 repository
+        name: Install Xerces with XSD 1.1 support in local M2 repository (POSIX)
+        if: startsWith(matrix.os, 'windows') == false
         run: ./bin/install-xerces-m2.sh
+      -
+        name: Install Xerces with XSD 1.1 support in local M2 repository (Windows)
+        if: startsWith(matrix.os, 'windows')
+        run: ./bin/install-xerces-m2.ps1
       -
         name: Update version
         if: steps.check-tag.outputs.tag
-        run: mvn --batch-mode -Dstyle.color=always org.eclipse.tycho:tycho-versions-plugin:set-version "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
+        run: mvn --batch-mode "-Dstyle.color=always" "org.eclipse.tycho:tycho-versions-plugin:set-version" "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
       -
         name: Compile
-        run: mvn --batch-mode -Dstyle.color=always compile
+        run: mvn --batch-mode "-Dstyle.color=always" compile
       -
         name: Verify
-        run: mvn --batch-mode -Dstyle.color=always verify
+        run: mvn --batch-mode "-Dstyle.color=always" verify
       -
         name: Print version
         run: java -jar concrete-cif.jar --version
       -
-        name: Copy jar to temporary folder
-        run: cp concrete-cif.jar /tmp/
+        name: Test jar (POSIX)
+        if: startsWith(matrix.os, 'windows') == false
+        run: ./.github/workflows/test-jar.sh
       -
-        name: Test good CIFs with jar
-        run: cd /tmp && java -jar concrete-cif.jar "$GITHUB_WORKSPACE/src/test/resources/cifs-good"
-      -
-        name: Test bad CIFs with jar
-        run: cd /tmp && ! java -jar concrete-cif.jar "$GITHUB_WORKSPACE/src/test/resources/cifs-bad"
+        name: Test jar (Windows)
+        if: startsWith(matrix.os, 'windows')
+        run: ./.github/workflows/test-jar.ps1
       -
         name: Calculate hash
         if: steps.check-tag.outputs.tag
