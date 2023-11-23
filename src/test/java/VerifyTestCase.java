@@ -53,10 +53,11 @@ public class VerifyTestCase {
 		int exitCode = this.app.execute(paths);
 		if (expectedExitCode == 0) {
 			assertEquals("", this.app.getStandardError(), message);
+			assertEquals(expectedExitCode, exitCode, message);
 		} else {
+			assertEquals(expectedExitCode, exitCode, message);
 			assertNotEquals("", this.app.getStandardError(), message);
 		}
-		assertEquals(expectedExitCode, exitCode);
 	}
 
 	static Stream<String> goodCifsProvider() {
