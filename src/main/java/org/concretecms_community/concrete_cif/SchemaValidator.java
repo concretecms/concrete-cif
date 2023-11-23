@@ -16,6 +16,9 @@ class SchemaValidator {
 
 	public SchemaValidator(URL xsdLocation) throws SAXException {
 		SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.1");
+		// Enable full XPath 2.0 for XSD 1.1 Conditional Type Assignment
+		// @see https://xerces.apache.org/xerces2-j/faq-xs.html#faq-3
+		factory.setFeature("http://apache.org/xml/features/validation/cta-full-xpath-checking", true);
 		this.schema = factory.newSchema(xsdLocation);
 	}
 
