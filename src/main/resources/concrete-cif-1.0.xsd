@@ -217,7 +217,7 @@
                         <xs:element name="tags" minOccurs="0" maxOccurs="1">
                             <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="tags" minOccurs="0" maxOccurs="1">
+                                    <xs:element name="tag" minOccurs="0" maxOccurs="1">
                                         <xs:complexType>
                                             <xs:attribute name="value" type="xs:string" use="required" />
                                         </xs:complexType>
