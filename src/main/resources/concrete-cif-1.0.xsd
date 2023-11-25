@@ -100,7 +100,27 @@
                     </xs:sequence>
                     <xs:attribute name="handle" type="standard-attribute-category" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
-                    <xs:attribute name="allow-sets" type="boolean-like" use="required" />
+                    <xs:attribute name="allow-sets" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:enumeration value="0">
+                                    <xs:annotation>
+                                        <xs:documentation>ASET_ALLOW_NONE</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="1">
+                                    <xs:annotation>
+                                        <xs:documentation>ASET_ALLOW_SINGLE</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="2">
+                                    <xs:annotation>
+                                        <xs:documentation>ASET_ALLOW_MULTIPLE</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
