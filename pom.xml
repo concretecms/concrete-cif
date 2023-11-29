@@ -3,11 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.concretecms_community.concrete_cif</groupId>
+	<groupId>org.concretecms.concrete_cif</groupId>
 	<artifactId>concrete_cif</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
 	<name>concrete-cif</name>
-	<url>https://github.com/concrete5-community/concrete-cif</url>
+	<url>https://github.com/concretecms/concrete-cif</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -124,12 +124,12 @@
 						<transformer
 							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 							<Main-Class>
-								org.concretecms_community.concrete_cif.App</Main-Class>
+								org.concretecms.concrete_cif.App</Main-Class>
 						</transformer>
 					</transformers>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<entryPoints>
-						<entryPoint>org.concretecms_community.concrete_cif.App</entryPoint>
+						<entryPoint>org.concretecms.concrete_cif.App</entryPoint>
 					</entryPoints>
 					<outputFile>concrete-cif.jar</outputFile>
 				</configuration>

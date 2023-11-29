@@ -1,4 +1,4 @@
-package org.concretecms_community.concrete_cif;
+package org.concretecms.concrete_cif;
 
 import java.util.List;
 import java.util.ArrayList;
