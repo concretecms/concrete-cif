@@ -1,4 +1,4 @@
-import org.concretecms_community.concrete_cif.App;
+import org.concretecms.concrete_cif.App;
 
 public class AppWrapper extends App {
 
