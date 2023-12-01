@@ -28,3 +28,21 @@ In order to solve this problem, you can use the [`concrete-cif.jar` app](https:/
 2. You need [Apache Maven](https://maven.apache.org/)
 3. You need to download Xerces locally by using the `bin/install-xerces-m2.sh` script (on Windows: `bin\install-xerces-m2.bat` or `bin\install-xerces-m2.ps1`)
 4. Run `mvn verify`
+
+## Using the XSD in an IDE
+
+You can use the XSD in CIF files so that your IDE can offer validation and auto-completion.
+
+In order to do that, simply start your CIF files with:
+
+```xml
+<concrete5-cif
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://github.com/concretecms/concrete-cif/releases/latest/download/concrete-cif-1.0.xsd"
+    version="1.0"
+>
+   <!-- up to you ;) -->
+</concrete5-cif>
+```
+
+Please remark that the XML Schema is written in version 1.1, and so far most of the IDEs only support version 1.0.
