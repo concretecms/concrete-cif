@@ -501,7 +501,6 @@
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="plural_handle" type="handle" use="required" />
                     <xs:attribute name="name" type="string-required" use="required" />
-                    <!-- @todo it's exported but not imported? -->
                     <xs:attribute name="supports_custom_display_order" type="boolean-like" use="optional" />
                     <xs:attribute name="include_in_public_list" type="boolean-like" use="optional" />
                     <xs:attribute name="use_separate_site_result_buckets" type="boolean-like" use="optional" />
@@ -1485,7 +1484,6 @@
         <xs:attribute name="name" type="string-required" use="required" />
         <xs:attribute name="indexed" type="boolean-like" use="optional" />
         <xs:attribute name="internal" type="boolean-like" use="optional" />
-        <!-- @todo unused in Concrete\Core\Entity\Attribute\Key\Key\StandardImportLoader: remove it? or fix StandardImportLoader? -->
         <xs:attribute name="searchable" type="boolean-like" use="optional" />
         <!-- @see Concrete\Core\Attribute\Category\ExpressCategory -->
         <xs:attribute name="unique" type="boolean-like" use="optional" />
