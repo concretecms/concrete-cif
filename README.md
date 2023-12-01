@@ -14,7 +14,7 @@ In order to solve this problem, you can use the [`concrete-cif.jar` app](https:/
 
 ## Using `concrete-cif.jar`
 
-1. Install Java (at least version 17). If you don't know how to do that, take a look at [Eclipse Temurin](https://adoptium.net/))
+1. Install Java (at least version 11). If you don't know how to do that, take a look at [Eclipse Temurin](https://adoptium.net/))
 2. [Download](https://github.com/concretecms/concrete-cif/releases/latest/download/concrete-cif.jar) the latest version
 3. Call concrete-cif.jar by passing it the files (or the directories) you want to check.  
    For example:
@@ -24,7 +24,7 @@ In order to solve this problem, you can use the [`concrete-cif.jar` app](https:/
 
 ## Compiling `concrete-cif.jar`
 
-1. You need a Java JDK (at least 17) - see for example [Eclipse Temurin](https://adoptium.net/)
+1. You need a Java JDK (at least 11) - see for example [Eclipse Temurin](https://adoptium.net/)
 2. You need [Apache Maven](https://maven.apache.org/)
 3. You need to download Xerces locally by using the `bin/install-xerces-m2.sh` script (on Windows: `bin\install-xerces-m2.bat` or `bin\install-xerces-m2.ps1`)
 4. Run `mvn verify`
