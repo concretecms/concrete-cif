@@ -42,9 +42,16 @@
             <xs:element name="designtags" minOccurs="0" maxOccurs="1" type="designTags" />
             <xs:element name="expressentities" minOccurs="0" maxOccurs="1" type="expressEntities" />
             <xs:element name="expressentries" minOccurs="0" maxOccurs="1" type="expressEntries" />
+            <xs:element name="featurecategories" minOccurs="0" maxOccurs="1" type="featureCategories" />
+            <xs:element name="features" minOccurs="0" maxOccurs="1" type="features" />
             <xs:element name="flag_types" minOccurs="0" maxOccurs="1" type="flagTypes" />
+            <xs:element name="gatheringitemtemplates" minOccurs="0" maxOccurs="1" type="gatheringItemTemplates" />
+            <xs:element name="gatheringitemtemplatetypes" minOccurs="0" maxOccurs="1" type="gatheringItemTemplateTypes" />
+            <xs:element name="gatheringsources" minOccurs="0" maxOccurs="1" type="gatheringSources" />
             <xs:element name="geolocators" minOccurs="0" maxOccurs="1" type="geolocators" />
             <xs:element name="groups" minOccurs="0" maxOccurs="1" type="groups" />
+            <xs:element name="imageeditor_controlsets" minOccurs="0" maxOccurs="1" type="imageEditorControlSets" />
+            <xs:element name="imageeditor_filters" minOccurs="0" maxOccurs="1" type="imageEditorFilters" />
             <xs:element name="ipaccesscontrolcategories" minOccurs="0" maxOccurs="1" type="ipAccessControlCategories" />
             <xs:element name="jobs" minOccurs="0" maxOccurs="1" type="jobs" />
             <xs:element name="jobsets" minOccurs="0" maxOccurs="1" type="jobSets" />
@@ -537,11 +544,56 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- @see ImportFeatureCategoriesRoutine (removed in ConcreteCMS 9) -->
+    <xs:complexType name="featureCategories">
+        <!-- Gatherings have never worked and have never been used - let's ignore them -->
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+        </xs:sequence>
+        <xs:anyAttribute processContents="skip" />
+    </xs:complexType>
+
+    <!-- @see ImportFeaturesRoutine (removed in ConcreteCMS 9) -->
+    <xs:complexType name="features">
+        <!-- Gatherings have never worked and have never been used - let's ignore them -->
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+        </xs:sequence>
+        <xs:anyAttribute processContents="skip" />
+    </xs:complexType>
+
     <!-- @see ImportConversationFlagTypesRoutine -->
     <xs:complexType name="flagTypes">
         <xs:sequence>
             <xs:element name="flag_type" type="string-required" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
+    </xs:complexType>
+
+    <!-- @see ImportGatheringDataSourcesRoutine (removed in ConcreteCMS 9) -->
+    <xs:complexType name="gatheringSources">
+        <!-- Gatherings have never worked and have never been used - let's ignore them -->
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+        </xs:sequence>
+        <xs:anyAttribute processContents="skip" />
+    </xs:complexType>
+
+    <!-- @see ImportGatheringItemTemplatesRoutine (removed in ConcreteCMS 9) -->
+    <xs:complexType name="gatheringItemTemplates">
+        <!-- Gatherings have never worked and have never been used - let's ignore them -->
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+        </xs:sequence>
+        <xs:anyAttribute processContents="skip" />
+    </xs:complexType>
+
+    <!-- @see ImportGatheringItemTemplateTypesRoutine (removed in ConcreteCMS 9) -->
+    <xs:complexType name="gatheringItemTemplateTypes">
+        <!-- Gatherings have never worked and have never been used - let's ignore them -->
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+        </xs:sequence>
+        <xs:anyAttribute processContents="skip" />
     </xs:complexType>
 
     <!-- @see ImportGeolocatorsRoutine -->
@@ -582,6 +634,24 @@
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
+    </xs:complexType>
+
+    <!-- This CIF has been removed in ConcreteCMS 9 (and was never used in previous concrete5 versions) -->
+    <xs:complexType name="imageEditorControlSets">
+        <!-- Gatherings have never worked and have never been used - let's ignore them -->
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+        </xs:sequence>
+        <xs:anyAttribute processContents="skip" />
+    </xs:complexType>
+
+    <!-- This CIF has been removed in ConcreteCMS 9 (and was never used in previous concrete5 versions) -->
+    <xs:complexType name="imageEditorFilters">
+        <!-- Gatherings have never worked and have never been used - let's ignore them -->
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip" />
+        </xs:sequence>
+        <xs:anyAttribute processContents="skip" />
     </xs:complexType>
 
     <!-- @see ImportIpAccessControlCategoriesRoutine -->
