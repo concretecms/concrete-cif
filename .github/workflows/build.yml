@@ -58,7 +58,7 @@ jobs:
       -
         name: Update version
         if: steps.check-tag.outputs.tag
-        run: mvn --batch-mode "-Dstyle.color=always" "org.eclipse.tycho:tycho-versions-plugin:set-version" "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
+        run: mvn --batch-mode "-Dstyle.color=always" "org.eclipse.tycho:tycho-versions-plugin:2.7.5:set-version" "-DnewVersion=${{ steps.check-tag.outputs.tag }}"
       -
         name: Compile
         run: mvn --batch-mode "-Dstyle.color=always" compile
