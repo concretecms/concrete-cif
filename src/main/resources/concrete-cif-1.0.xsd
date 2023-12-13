@@ -152,8 +152,7 @@
                     </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="category" type="standard-attribute-category" use="required" />
-                    <!-- @todo make it use="required"? -->
-                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
                     <!-- @todo make it use="required"? -->
                     <xs:attribute name="name" type="string-required" use="optional" />
                     <xs:attribute name="locked" type="boolean-like" use="optional" />
@@ -179,7 +178,7 @@
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
                     <!-- @todo make it use="required"? -->
-                    <xs:attribute name="name" type="xs:string" use="optional" />
+                    <xs:attribute name="name" type="string-required" use="optional" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -213,10 +212,8 @@
                         <xs:element name="blocktype" type="element-with-required-handle" minOccurs="1" maxOccurs="unbounded" />
                     </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- @todo make it use="required"? -->
-                    <xs:attribute name="package" type="handle" use="optional" />
-                    <!-- @todo make it use="required"? -->
-                    <xs:attribute name="name" type="string-required" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -337,8 +334,7 @@
                     <xs:simpleContent>
                         <xs:extension base="xs:string">
                             <xs:attribute name="name" type="string-required" use="required" />
-                            <!-- @todo make it use="required"? -->
-                            <xs:attribute name="package" type="handle" use="optional" />
+                            <xs:attribute name="package" type="handle" use="required" />
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
@@ -515,8 +511,7 @@
                     <xs:attribute name="default_view_form" type="guid" use="optional" />
                     <xs:attribute name="default_edit_form" type="guid" use="optional" />
                     <xs:attribute name="results-folder" type="string-required" use="optional" />
-                    <!-- @todo make it use="required"? -->
-                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -869,8 +864,7 @@
                         </xs:element>
                     </xs:all>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- @todo make it use="required"? -->
-                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
                     <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="internal" type="boolean-like" use="optional" />
                     <xs:attribute name="site-type" type="handle" use="optional" />
@@ -909,8 +903,7 @@
                         </xs:element>
                     </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- @todo make it required instead of deriving it from the handle? -->
-                    <xs:attribute name="name" type="xs:string" use="optional" />
+                    <xs:attribute name="name" type="string-required" use="required" />
                     <xs:attribute name="package" type="handle" use="required" />
                 </xs:complexType>
             </xs:element>
@@ -923,8 +916,7 @@
             <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- @todo make it use="required"? -->
-                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1195,8 +1187,7 @@
             <xs:element name="task" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:attribute name="handle" type="handle-required" use="required" />
-                    <!-- @todo make it use="required"? -->
-                    <xs:attribute name="package" type="handle" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
