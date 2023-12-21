@@ -3887,10 +3887,12 @@
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
-                        <xs:element name="imageLink__which" type="xs:string" minOccurs="0" maxOccurs="1" />
-                        <xs:element name="imageLink_page" type="ccm-page" minOccurs="0" maxOccurs="1" />
-                        <xs:element name="imageLink_file" type="ccm-file" minOccurs="0" maxOccurs="1" />
-                        <xs:element name="imageLink_external_url" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="imageLink__which" type="destinationPickerHandle" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="imageLink_none" type="destinationPicker_none" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="imageLink_page" type="destinationPicker_page" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="imageLink_file" type="destinationPicker_file" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="imageLink_external_url" type="destinationPicker_external_url" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="imageLink_email" type="destinationPicker_email" minOccurs="0" maxOccurs="1" />
                     </xs:all>
                 </xs:complexType>
             </xs:element>
@@ -4895,5 +4897,33 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+
+
+    <!--
+    ### Destination Picker
+    -->
+
+    <xs:simpleType name="destinationPickerHandle">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none" />
+            <xs:enumeration value="page" />
+            <xs:enumeration value="file" />
+            <xs:enumeration value="external_url" />
+            <xs:enumeration value="email" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="destinationPicker_none" />
+    <xs:simpleType name="destinationPicker_page">
+        <xs:restriction base="ccm-page" />
+    </xs:simpleType>
+    <xs:simpleType name="destinationPicker_file">
+        <xs:restriction base="ccm-file" />
+    </xs:simpleType>
+    <xs:simpleType name="destinationPicker_external_url">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:simpleType name="destinationPicker_email">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
 
 </xs:schema>
