@@ -2744,6 +2744,7 @@
                 <xs:complexType>
                     <xs:all>
                         <xs:element name="caID" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="chooseCalendar" type="chooseCalendarEnum" minOccurs="0" maxOccurs="1" />
                         <xs:element name="calendarAttributeKeyHandle" type="handle" minOccurs="0" maxOccurs="1" />
                         <xs:element name="filterByTopicAttributeKeyID" type="xs:integer" minOccurs="0" maxOccurs="1" />
                         <xs:element name="filterByTopicID" type="xs:integer" minOccurs="0" maxOccurs="1" />
@@ -3298,6 +3299,7 @@
                 <xs:complexType>
                     <xs:all>
                         <xs:element name="caID" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        <xs:element name="chooseCalendar" type="chooseCalendarEnum" minOccurs="0" maxOccurs="1" />
                         <xs:element name="calendarAttributeKeyHandle" type="handle" minOccurs="0" maxOccurs="1" />
                         <xs:element name="totalToRetrieve" type="integer-greather-than-zero" minOccurs="0" maxOccurs="1" />
                         <xs:element name="totalPerPage" type="integer-greather-than-zero" minOccurs="0" maxOccurs="1" />
@@ -4924,6 +4926,18 @@
     </xs:simpleType>
     <xs:simpleType name="destinationPicker_email">
         <xs:restriction base="xs:string" />
+    </xs:simpleType>
+
+    <!--
+    ### Calendar-related
+    -->
+
+    <xs:simpleType name="chooseCalendarEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="" />
+            <xs:enumeration value="specific" />
+            <xs:enumeration value="site" />
+        </xs:restriction>
     </xs:simpleType>
 
 </xs:schema>
