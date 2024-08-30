@@ -700,6 +700,14 @@
         <xs:sequence>
             <xs:element name="package" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
+                    <xs:sequence>
+                    	<xs:element name="option" minOccurs="0" maxOccurs="unbounded">
+                    		<xs:complexType>
+                    			<xs:attribute name="name" type="string-required" use="required" />
+                    			<xs:attribute name="value" type="xs:string" use="optional" />
+                    		</xs:complexType>
+                    	</xs:element>
+                    </xs:sequence>
                     <xs:attribute name="handle" type="handle-required" use="required" />
                     <xs:attribute name="full-content-swap" type="xs:string" fixed="true" use="optional" />
                     <xs:attribute name="content-swap-file" type="string-required" use="optional" />
