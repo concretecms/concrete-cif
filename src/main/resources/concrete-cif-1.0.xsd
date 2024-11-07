@@ -1073,6 +1073,7 @@
                     </xs:attribute>
                     <xs:attribute name="path" type="xs:string" use="optional" />
                     <xs:attribute name="name" type="string-required" use="required" />
+                    <xs:attribute name="section" type="locale-id" use="optional" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1479,6 +1480,36 @@
     <xs:simpleType name="ccm-pagetype-required">
         <xs:restriction base="ccm-pagetype">
             <xs:minLength value="2" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="language-id">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([a-z]{2,3})?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="language-id-required">
+        <xs:restriction base="language-id">
+            <xs:minLength value="1" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="country-id">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([A-Z]{2}|[0-9]{3})?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="country-id-required">
+        <xs:restriction base="country-id">
+            <xs:minLength value="1" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="locale-id">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([a-z]{2,3}_([A-Z]{2}|[0-9]{3}))?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="locale-id-required">
+        <xs:restriction base="locale-id">
+            <xs:minLength value="1" />
         </xs:restriction>
     </xs:simpleType>
 
@@ -2286,10 +2317,28 @@
     <!-- @see ImportSinglePageStructureRoutine -->
     <!-- @see ImportSinglePageContentRoutine -->
     <xs:complexType name="_abstractPage">
-        <xs:sequence>
+        <xs:all>
+            <xs:element name="locale" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:attribute name="language" type="language-id-required" use="required" />
+                    <xs:attribute name="country" type="country-id-required" use="required" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="hreflang" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="alternate" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="locale" type="locale-id-required" use="required" />
+                                <xs:attribute name="path" type="string-required" use="required" />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="attributes" type="attributesContainer" minOccurs="0" maxOccurs="1" />
             <xs:element name="area" type="area" minOccurs="0" maxOccurs="unbounded" />
-        </xs:sequence>
+        </xs:all>
         <xs:attribute name="user" type="xs:string" use="optional" />
         <!-- @todo unused? -->
         <xs:attribute name="filename" type="xs:string" use="optional" />
@@ -2388,6 +2437,16 @@
                 <xs:attribute name="global" type="true-or-empty" use="optional" />
                 <xs:attribute name="custom-path" type="xs:string" use="optional" />
                 <xs:assert test="(@custom-path and @custom-path != '') or (@path and @path != '')" />
+                <xs:assert test="not(locale)">
+                    <xs:annotation>
+                        <xs:documentation>The locale element is just for pages, not for single pages</xs:documentation>
+                    </xs:annotation>
+                </xs:assert>
+                <xs:assert test="not(hreflang)">
+                    <xs:annotation>
+                        <xs:documentation>The hreflang element is just for pages, not for single pages</xs:documentation>
+                    </xs:annotation>
+                </xs:assert>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

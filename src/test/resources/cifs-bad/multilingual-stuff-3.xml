@@ -1,0 +1,7 @@
+<concrete5-cif version="1.0">
+    <pages>
+        <page name="Home" path="" filename="" template="full" user="admin" description="" package="">
+            <locale language="it" country="" />
+        </page>
+    </pages>
+</concrete5-cif>
