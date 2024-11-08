@@ -2324,6 +2324,11 @@
                     <xs:attribute name="country" type="country-id-required" use="required" />
                 </xs:complexType>
             </xs:element>
+            <xs:element name="additional-path" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="path" type="string-required" use="required" />
+                </xs:complexType>
+            </xs:element>
             <xs:element name="hreflang" minOccurs="0" maxOccurs="1">
                 <xs:complexType>
                     <xs:sequence>
@@ -2440,6 +2445,11 @@
                 <xs:assert test="not(locale)">
                     <xs:annotation>
                         <xs:documentation>The locale element is just for pages, not for single pages</xs:documentation>
+                    </xs:annotation>
+                </xs:assert>
+                <xs:assert test="not(additional-path)">
+                    <xs:annotation>
+                        <xs:documentation>The additional-path element is just for pages, not for single pages</xs:documentation>
                     </xs:annotation>
                 </xs:assert>
                 <xs:assert test="not(hreflang)">
