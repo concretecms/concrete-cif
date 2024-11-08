@@ -745,9 +745,20 @@
 
     <!-- @see ImportPageContentRoutine -->
     <xs:complexType name="pages">
-        <xs:sequence>
-            <xs:element name="page" type="page" minOccurs="1" maxOccurs="unbounded" />
-        </xs:sequence>
+        <xs:all>
+            <xs:element name="page" type="page" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="external-link" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="name" type="string-required" use="required" />
+                    <xs:attribute name="path" type="string-required" use="required" />
+                    <xs:attribute name="destination" type="string-required" use="required" />
+                    <xs:attribute name="new-window" type="xs:boolean" use="optional" />
+                    <xs:attribute name="user" type="xs:string" use="optional" />
+                    <xs:attribute name="public-date" type="date-time" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
         <xs:assert test="every $page in page satisfies ($page/@name and $page/@name != '')" />
     </xs:complexType>
 

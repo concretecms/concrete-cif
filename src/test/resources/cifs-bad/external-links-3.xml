@@ -1,0 +1,5 @@
+<concrete5-cif version="1.0">
+    <pages>
+        <external-link name="External Link" path="" user="admin" public-date="2024-11-08 16:24:21" destination="https://path.to/url?p1=one&amp;p2=two" new-window="wrong" package="" />
+    </pages>
+</concrete5-cif>
