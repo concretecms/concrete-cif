@@ -758,6 +758,15 @@
                     <xs:attribute name="package" type="handle" use="required" />
                 </xs:complexType>
             </xs:element>
+            <xs:element name="alias" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="name" type="string-required" use="required" />
+                    <xs:attribute name="path" type="string-required" use="required" />
+                    <xs:attribute name="original-path" type="string-required" use="required" />
+                    <xs:attribute name="user" type="xs:string" use="optional" />
+                    <xs:attribute name="package" type="handle" use="required" />
+                </xs:complexType>
+            </xs:element>
         </xs:all>
         <xs:assert test="every $page in page satisfies ($page/@name and $page/@name != '')" />
     </xs:complexType>
