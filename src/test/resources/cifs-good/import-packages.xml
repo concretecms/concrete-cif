@@ -1,0 +1,9 @@
+<concrete5-cif version="1.0">
+    <packages>
+        <package handle="my_package" full-content-swap="true" content-swap-file="my-content.xml">
+            <option name="scalar" value="value" />
+            <option name="array[]" value="value1" />
+            <option name="array[]" value="value2" />
+        </package>
+    </packages>
+</concrete5-cif>
