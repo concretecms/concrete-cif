@@ -13,5 +13,7 @@
         <option name="o10" storage="file" package="my_package">foo</option>
         <option name="o11" storage="database" package="">foo</option>
         <option name="o12" storage="database" package="my_package">foo</option>
+        <option name="o13" storage="database" overwrite="false" package="my_package">foo</option>
+        <option name="o14" storage="database" overwrite="true" package="my_package">foo</option>
     </config>
 </concrete5-cif>
