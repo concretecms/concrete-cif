@@ -334,6 +334,14 @@
                     <xs:simpleContent>
                         <xs:extension base="xs:string">
                             <xs:attribute name="name" type="string-required" use="required" />
+                            <xs:attribute name="storage" use="optional">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="file" />
+                                        <xs:enumeration value="database" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
                             <xs:attribute name="package" type="handle" use="required" />
                         </xs:extension>
                     </xs:simpleContent>

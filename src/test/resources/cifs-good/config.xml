@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+    <config>
+        <option name="o1" package="" />
+        <option name="o2" package="my_package" />
+        <option name="o3" storage="file" package="" />
+        <option name="o4" storage="file" package="my_package" />
+        <option name="o5" storage="database" package="" />
+        <option name="o6" storage="database" package="my_package" />
+        <option name="o7" package="">foo</option>
+        <option name="o8" package="my_package">foo</option>
+        <option name="o9" storage="file" package="">foo</option>
+        <option name="o10" storage="file" package="my_package">foo</option>
+        <option name="o11" storage="database" package="">foo</option>
+        <option name="o12" storage="database" package="my_package">foo</option>
+    </config>
+</concrete5-cif>
