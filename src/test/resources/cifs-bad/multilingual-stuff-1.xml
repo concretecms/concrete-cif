@@ -1,0 +1,10 @@
+<concrete5-cif version="1.0">
+    <singlepages>
+        <page name="Calendar &amp; Events" path="/dashboard/calendar" filename="/dashboard/calendar/view.php" pagetype="" description="" package="">
+            <hreflang>
+                <alternate locale="fd_DE" path="/de" />
+                <alternate locale="fr_001" path="/fr" />
+            </hreflang>
+        </page>
+    </singlepages>
+</concrete5-cif>

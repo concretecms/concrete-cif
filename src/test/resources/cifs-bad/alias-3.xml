@@ -1,0 +1,5 @@
+<concrete5-cif version="1.0">
+    <pages>
+        <alias name="" path="/alias" original-path="/text" user="admin" package="" />
+    </pages>
+</concrete5-cif>

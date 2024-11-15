@@ -1,0 +1,7 @@
+<concrete5-cif version="1.0">
+    <pages>
+        <page name="Home" path="/" filename="" template="full" user="admin" description="" package="" />
+        <alias name="External Link" path="/alias" original-path="/text" user="admin" package="" />
+        <page name="Test" path="/test" filename="" template="full" user="admin" description="" package="" />
+    </pages>
+</concrete5-cif>
