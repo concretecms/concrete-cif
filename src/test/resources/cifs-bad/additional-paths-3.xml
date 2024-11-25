@@ -1,0 +1,7 @@
+<concrete5-cif version="1.0">
+    <singlepages>
+        <page name="Calendar &amp; Events" path="/dashboard/calendar" filename="/dashboard/calendar/view.php" pagetype="" description="" package="">
+            <additional-path path="/alias" />
+        </page>
+    </singlepages>
+</concrete5-cif>

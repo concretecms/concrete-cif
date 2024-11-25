@@ -1,0 +1,17 @@
+<concrete5-cif version="1.0">
+    <pages>
+        <page name="Home" path="" filename="" template="full" user="admin" description="" package="">
+            <area name="Main" />
+            <attributes>
+                <attributekey handle="exclude_nav">
+                    <value>1</value>
+                </attributekey>
+            </attributes>
+            <hreflang>
+                <alternate locale="fd_DE" path="/de" />
+                <alternate locale="fr_001" path="/fr" />
+            </hreflang>
+            <locale language="it" country="IT" />
+        </page>
+    </pages>
+</concrete5-cif>
