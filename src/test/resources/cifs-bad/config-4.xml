@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+    <config>
+        <option name="o1" storage="wrong" package="my_package">foo</option>
+    </config>
+</concrete5-cif>
