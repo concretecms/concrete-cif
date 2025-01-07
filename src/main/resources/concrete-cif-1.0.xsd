@@ -343,6 +343,7 @@
                                 </xs:simpleType>
                             </xs:attribute>
                             <xs:attribute name="overwrite" type="xs:boolean" use="optional" />
+                            <xs:attribute name="json" type="xs:boolean" use="optional" />
                             <xs:attribute name="package" type="handle" use="required" />
                         </xs:extension>
                     </xs:simpleContent>
