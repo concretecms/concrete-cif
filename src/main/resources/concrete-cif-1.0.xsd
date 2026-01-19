@@ -1381,7 +1381,7 @@
 
     <xs:simpleType name="string-required">
         <xs:restriction base="xs:string">
-            <xs:minLength value="1 " />
+            <xs:minLength value="1" />
             <xs:pattern value=".*\S.*" />
         </xs:restriction>
     </xs:simpleType>
@@ -1392,13 +1392,13 @@
     </xs:simpleType>
     <xs:simpleType name="handle">
         <xs:restriction base="xs:string">
-            <xs:maxLength value="255 " />
+            <xs:maxLength value="255" />
             <xs:pattern value="[a-z]?([a-z0-9_]*[a-z0-9])?" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="handle-with-minus">
         <xs:restriction base="xs:string">
-            <xs:maxLength value="255 " />
+            <xs:maxLength value="255" />
             <xs:pattern value="([a-z]?([a-z0-9_\-]*[a-z0-9])?)?" />
         </xs:restriction>
     </xs:simpleType>
