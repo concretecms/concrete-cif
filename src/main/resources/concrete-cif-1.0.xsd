@@ -1627,38 +1627,38 @@
         <!-- @see Concrete\Core\Attribute\Category\ExpressCategory -->
         <xs:assert test="@category = 'express' or not(@unique)">
             <xs:annotation>
-                <xs:documentation>This attribute is only for express attribues</xs:documentation>
+                <xs:documentation>This attribute is only for express attributes</xs:documentation>
             </xs:annotation>
         </xs:assert>
         <!-- @see Concrete\Core\Attribute\Category\UserCategory -->
         <xs:assert test="@category = 'user' or not(@profile-displayed)">
             <xs:annotation>
-                <xs:documentation>This attribute is only for user attribues</xs:documentation>
+                <xs:documentation>This attribute is only for user attributes</xs:documentation>
             </xs:annotation>
         </xs:assert>
         <xs:assert test="@category = 'user' or not(@profile-editable)">
             <xs:annotation>
-                <xs:documentation>This attribute is only for user attribues</xs:documentation>
+                <xs:documentation>This attribute is only for user attributes</xs:documentation>
             </xs:annotation>
         </xs:assert>
         <xs:assert test="@category = 'user' or not(@profile-required)">
             <xs:annotation>
-                <xs:documentation>This attribute is only for user attribues</xs:documentation>
+                <xs:documentation>This attribute is only for user attributes</xs:documentation>
             </xs:annotation>
         </xs:assert>
         <xs:assert test="@category = 'user' or not(@register-editable)">
             <xs:annotation>
-                <xs:documentation>This attribute is only for user attribues</xs:documentation>
+                <xs:documentation>This attribute is only for user attributes</xs:documentation>
             </xs:annotation>
         </xs:assert>
         <xs:assert test="@category = 'user' or not(@register-required)">
             <xs:annotation>
-                <xs:documentation>This attribute is only for user attribues</xs:documentation>
+                <xs:documentation>This attribute is only for user attributes</xs:documentation>
             </xs:annotation>
         </xs:assert>
         <xs:assert test="@category = 'user' or not(@member-list-displayed)">
             <xs:annotation>
-                <xs:documentation>This attribute is only for user attribues</xs:documentation>
+                <xs:documentation>This attribute is only for user attributes</xs:documentation>
             </xs:annotation>
         </xs:assert>
     </xs:complexType>
